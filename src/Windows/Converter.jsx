@@ -1,22 +1,13 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+
 
 function Converter(){
 
-
-        return(
-
-            <div>
-                <h1>Hello is converter page </h1>
-            </div>
-        )
-
-
-
-
-
-
-
-
+  return (
+    <></>
+  )
+  
 }
+
 export default Converter;
+
