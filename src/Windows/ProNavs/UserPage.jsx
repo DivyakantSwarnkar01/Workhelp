@@ -1,0 +1,112 @@
+import React, { useState, useRef  } from 'react';
+import Dialog from './Dialog';
+import Protected from './Protected';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth } from '../LogSign/fbcon';
+import { signOut } from 'firebase/auth';
+import Sdbrlft from './UP_Components/Sdbrlft';
+import Sdbrrgt from './UP_Components/Sdbrrgt';
+import AdPost from './UP_Components/AdPost';
+
+
+
+
+
+function UserPage() {
+  const [dialogs, setDialogs] = useState([]);
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const navigate = useNavigate();
+
+  const handleAddDialog = () => {
+    const newDialog = {
+      id: Date.now(),
+      type: 'text', // Default type is text
+      content: '',
+    };
+    setDialogs((prevDialogs) => [...prevDialogs, newDialog]);
+  };
+
+  const handleDialogChange = (id, content) => {
+    setDialogs((prevDialogs) =>
+      prevDialogs.map((dialog) =>
+        dialog.id === id ? { ...dialog, content } : dialog
+      )
+    );
+  };
+
+  const handleDialogTypeChange = (id, type) => {
+    setDialogs((prevDialogs) =>
+      prevDialogs.map((dialog) =>
+        dialog.id === id ? { ...dialog, type } : dialog
+      )
+    );
+  };
+
+  const handlePost = () => {
+    // Send dialogs data to Firestore
+    console.log(dialogs);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      navigate("/LogSign/Log_Sign");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  return (
+    <div className="flex mb-40 relative">
+
+      <div className="mt-5 ml-3">
+      <Sdbrlft/>
+      </div>
+    
+      <div className="ml-5 mr-5 justify-center">
+    <div className="flex flex-col items-center py-10">
+      <button
+        className="bg-blue-500 text-white px-4 py-2 rounded-full shadow-md mb-4"
+        onClick={handleAddDialog}
+      >
+        + in circle
+      </button>
+      {dialogs.map((dialog) => (
+        <Dialog
+          key={dialog.id}
+          id={dialog.id}
+          type={dialog.type}
+          content={dialog.content}
+          onChange={handleDialogChange}
+          onTypeChange={handleDialogTypeChange}
+        />
+      ))}
+      <button
+        className="bg-green-500 text-white px-4 py-2 rounded-full shadow-md mt-4"
+        onClick={handlePost}
+      >
+        Post
+      </button>
+    </div>
+    
+      <AdPost/>
+    
+     <div>
+     <h1>Welcome to React Firebase Auth using email and password</h1>
+     <h2>{user && user.email}</h2>
+     <button onClick={handleLogout}>Logout</button>
+   </div>
+   </div>
+
+      <div className="mt-5 right-5 absolute">
+        <Sdbrrgt/>
+      </div>
+
+   </div>
+  );
+}
+
+export default UserPage;

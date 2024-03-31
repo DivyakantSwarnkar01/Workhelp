@@ -6,7 +6,7 @@ function jobs(){
 
         return(
 
-            <div>
+            <div className="box-border bg-lime-500 border-t-0 w-full h-36">
                 <h1>Hello is jobs page </h1>
             </div>
         )
