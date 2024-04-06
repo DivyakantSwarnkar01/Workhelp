@@ -54,7 +54,7 @@ const AdPost = () => {
     <div>
       <h1>Quill Editor Example</h1>
       <div ref={quillRef} style={{ minHeight: '400px' }} />
-      <button onClick={postToFirestore}>Post to Firestore</button>
+      <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 border border-lime-700 rounded" onClick={postToFirestore}>Post</button>
     </div>
   );
 };
