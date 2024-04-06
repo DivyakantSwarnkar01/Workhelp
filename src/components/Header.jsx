@@ -18,14 +18,22 @@ function Header(){
 
             <Router>
           <div>
-        <nav className='flex flex-box justify-left bg-lime-500 space-x-4 text-white'>
-          <a className="flex box-border h-10 w-35 bg-green-200 " href="https://www.workhelper.shop"><img src={ logo } alt="logo"/></a>
-         <Link className="mt-2" to="/">   Home          </Link>      
-         <Link className="mt-2" to="/Downloader">   Downloader   </Link> 
-        <Link  className="mt-2" to="/Converter">    Converter            </Link>
-         <Link className="mt-2" to="/jobs">    Jobs                 </Link>
-         <Link className="mt-2" to="/EditorX">   EditorX              </Link>
+          <nav className='flex flex-row justify-between bg-lime-500 space-x-4 text-white'>
+          <div className="flex items-center">
+            <a  className='bg-green-200' href="https://www.workhelper.shop"><img src={ logo } alt="logo" className="h-10 w-35" /></a>
+            <Link to="/" className="mt-2 ml-4">Home</Link>      
+            <Link to="/Downloader" className="mt-2 ml-4">Downloader</Link> 
+            <Link to="/Converter" className="mt-2 ml-4">Converter</Link>
+            <Link to="/jobs" className="mt-2 ml-4">Jobs</Link>
+            <Link to="/EditorX" className="mt-2 ml-4">EditorX</Link>
+          </div>
+          <div className="flex items-center">
+            <span className="ml-auto mr-6">Cart</span>
+            <span className="mr-6">User</span>
+            <span className="mr-6">Login Icon</span>
+          </div>
         </nav>
+
 
           <Routes>
           <Route exact path="/*" Component= {Home} ></Route>
