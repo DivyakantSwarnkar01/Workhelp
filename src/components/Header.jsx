@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import routes from "../routes/routes";
 import logo from '../assets/logo.png';
-
-
-
+import UserIcons from '../assets/UserIcons.png'
+import CartIcon from '../assets/Cart_Icon.png'
+import MenuIcon from '../assets/icons8-menu-94.png'
 
 function Header(){
 
@@ -24,10 +24,10 @@ function Header(){
             <Link to="/LiveTV" className="mt-2 ml-4">LiveTV</Link>
             <Link to="/Api" className="mt-2 ml-4">API's</Link>
           </div>
-          <div className="flex items-center">
-            <span className="ml-auto mr-6">Cart</span>
-            <span className="mr-6">User</span>
-            <span className="mr-6">Login Icon</span>
+          <div className="flex border-b-green-950 items-center text-lime-900">
+            <span className="flex ml-auto mr-6"><img src={ CartIcon } alt="Cart" className="mt-0.5 h-5 w-8"/>Cart (0) </span>
+            <span className="flex mr-6"><img src={ UserIcons } alt="User" className="mt-0.5 h-5 w-5"/>(User)</span>
+            <span className="flex mr-6">Profile<img src={ MenuIcon } alt="Menu" className="mt-0.5 ml-1 h-6 w-6"/></span>
           </div>
         </nav>
 
