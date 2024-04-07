@@ -7,7 +7,8 @@ import { signOut } from 'firebase/auth';
 import Sdbrlft from './UP_Components/Sdbrlft';
 import Sdbrrgt from './UP_Components/Sdbrrgt';
 import AdPost from './UP_Components/AdPost';
-import Plus3D from '../../assets/Plus3D.png'
+import PostFire from './UP_Components/PostFire';
+import Plus3D from '../../assets/Plus3D.png';
 
 
 
@@ -60,8 +61,18 @@ function UserPage() {
   }
 
   return (
+    <div className='flex flex-col'>
+    <div className='flex bg-lime-500 w-4/4 item-centre h-10 mt-5 mb-10 ml-5 mr-5'>
+    <ul className='flex flex-row absolute align-left'>
+      <li className='text-white ml-3 mr-3 mt-2'>General</li>
+      <li className='text-white ml-3 mr-3 mt-2'>Database Tables</li>
+      <li className='text-white ml-3 mr-3 mt-2'>H.C.M. Console</li>
+      <li className='text-white ml-3 mr-3 mt-2'>C.R.M. Console</li>
+      <li className='text-white ml-3 mr-3 mt-2'>C.P.C.</li>
+      <li className='text-white ml-3 mr-3 mt-2'>Project Management</li>
+    </ul>
+   </div>
     <div className="flex mb-40 relative">
-
       <div className="mt-5 ml-3">
       <Sdbrlft/>
       </div>
@@ -93,6 +104,7 @@ function UserPage() {
     </div>
     
       <AdPost/>
+      <PostFire/>
     
      <div>
      <h1>Welcome to React Firebase Auth using email and password</h1>
@@ -104,7 +116,8 @@ function UserPage() {
       <div className="mt-5 right-5 absolute">
         <Sdbrrgt/>
       </div>
-
+      
+   </div>
    </div>
   );
 }

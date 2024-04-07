@@ -21,6 +21,8 @@ function Header(){
             <Link to="/Converter" className="mt-2 ml-4">Converter</Link>
             <Link to="/jobs" className="mt-2 ml-4">Jobs</Link>
             <Link to="/EditorX" className="mt-2 ml-4">EditorX</Link>
+            <Link to="/LiveTV" className="mt-2 ml-4">LiveTV</Link>
+            <Link to="/Api" className="mt-2 ml-4">API's</Link>
           </div>
           <div className="flex items-center">
             <span className="ml-auto mr-6">Cart</span>
