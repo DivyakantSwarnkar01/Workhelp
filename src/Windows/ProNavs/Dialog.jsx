@@ -1,5 +1,5 @@
 import React from 'react';
-import UserPage from './UserPage';
+import UserPage from './UserPage.jsx';
 
 function Dialog({ id, type, content, onChange, onTypeChange }) {
   const handleChange = (e) => {

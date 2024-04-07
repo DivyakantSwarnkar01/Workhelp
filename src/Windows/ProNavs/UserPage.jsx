@@ -7,7 +7,7 @@ import { signOut } from 'firebase/auth';
 import Sdbrlft from './UP_Components/Sdbrlft';
 import Sdbrrgt from './UP_Components/Sdbrrgt';
 import AdPost from './UP_Components/AdPost';
-
+import Plus3D from '../../assets/Plus3D.png'
 
 
 
@@ -69,10 +69,10 @@ function UserPage() {
       <div className="ml-5 mr-5 justify-center">
     <div className="flex flex-col items-center py-10">
       <button
-        className="bg-blue-500 text-white px-4 py-2 rounded-full shadow-md mb-4"
+        className="bg-black text-white px-4 py-2 rounded-full shadow-md mb-4"
         onClick={handleAddDialog}
       >
-        + in circle
+        <img src= { Plus3D } alt="Add Posts" className='h-5 w-5'></img>
       </button>
       {dialogs.map((dialog) => (
         <Dialog

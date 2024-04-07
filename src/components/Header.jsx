@@ -1,13 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import Home from '../Windows/Home';
-import jobs from '../Windows/jobs';
-import Downloader from '../Windows/Downloader';
-import Converter from '../Windows/Converter';
-import EditorX from "../Windows/EditorX";
-import LogSign from "../Windows/LogSign/Log_Sign";  
+import routes from "../routes/routes";
 import logo from '../assets/logo.png';
-import Protected from "../Windows/ProNavs/Protected";
+
 
 
 
@@ -36,13 +31,10 @@ function Header(){
 
 
           <Routes>
-          <Route exact path="/*" Component= {Home} ></Route>
-          <Route exact path="/Downloader" Component= {Downloader}></Route>
-          <Route exact path="/jobs" Component= {jobs} ></Route>
-          <Route exact path="/Converter" Component= {Converter} ></Route>
-          <Route exact path="/EditorX" Component= {EditorX} ></Route>
-          <Route exact path="/LogSign/Log_Sign" Component= {LogSign} ></Route>
-          <Route exact path="/ProNavs/Protected" Component= {Protected} ></Route>
+          
+          {routes.map((route, index) => (
+            <Route key={index} path={route.path} element={<route.element />} />
+          ))}
           
           </Routes>
         </div>
