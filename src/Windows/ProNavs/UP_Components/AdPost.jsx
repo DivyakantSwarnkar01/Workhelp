@@ -52,9 +52,12 @@ const AdPost = () => {
 
   return (
     <div>
-      <h1>Quill Editor Example</h1>
-      <div ref={quillRef} style={{ minHeight: '400px' }} />
-      <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 border border-lime-700 rounded" onClick={postToFirestore}>Post</button>
+      <h1>Title*:</h1>
+      <div ref={quillRef} style={{ maxHeight: '600px', maxWidth: '700px', minHeight: '300px' }} />
+      <div className='flex mt-5 mb-5'>
+      <button className="bg-green-400 hover:bg-green-700 mr-3 text-white font-bold py-2 px-4 border border-lime-700 rounded" onClick={postToFirestore}>Post</button>
+      <button className="bg-red-500 hover:bg-red-800 ml-3 mr-3 text-white font-bold py-2 px-4 border border-lime-700 rounded" onClick={postToFirestore}>Reset</button>
+      </div>
     </div>
   );
 };

@@ -2,7 +2,7 @@
 import React, { useRef, useEffect } from 'react';
 import tinymce from 'tinymce/tinymce';
 
-const AdDes = ({ initialValue, onContentChange }) => {
+const TinyMCEEditor = ({ initialValue, onContentChange }) => {
     const editorRef = useRef(null);
 
     useEffect(() => {
@@ -38,4 +38,4 @@ const AdDes = ({ initialValue, onContentChange }) => {
     );
 };
 
-export default AdDes;
+export default TinyMCEEditor;

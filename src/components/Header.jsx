@@ -16,13 +16,13 @@ function Header(){
           <nav className='flex flex-row justify-between bg-lime-500 space-x-4 text-white'>
           <div className="flex items-center">
             <a  className='bg-green-200' href="https://www.workhelper.shop"><img src={ logo } alt="logo" className="h-10 w-35" /></a>
-            <Link to="/" className="mt-2 ml-4">Home</Link>      
-            <Link to="/Downloader" className="mt-2 ml-4">Downloader</Link> 
-            <Link to="/Converter" className="mt-2 ml-4">Converter</Link>
-            <Link to="/jobs" className="mt-2 ml-4">Jobs</Link>
-            <Link to="/EditorX" className="mt-2 ml-4">EditorX</Link>
-            <Link to="/LiveTV" className="mt-2 ml-4">LiveTV</Link>
-            <Link to="/Api" className="mt-2 ml-4">API's</Link>
+            <Link to="/" className="mt-1 ml-4">Home</Link>      
+            <Link to="/Downloader" className="mt-1 ml-4">Downloader</Link> 
+            <Link to="/Converter" className="mt-1 ml-4">Converter</Link>
+            <Link to="/jobs" className="mt-1 ml-4">Jobs</Link>
+            <Link to="/EditorX" className="mt-1 ml-4">EditorX</Link>
+            <Link to="/LiveTV" className="mt-1 ml-4">LiveTV</Link>
+            <Link to="/Api" className="mt-1 ml-4">API's</Link>
           </div>
           <div className="flex border-b-green-950 items-center text-lime-900">
             <span className="flex ml-auto mr-6"><img src={ CartIcon } alt="Cart" className="mt-0.5 h-5 w-8"/>Cart (0) </span>
