@@ -1,0 +1,44 @@
+// PostStore.js
+import { useState } from 'react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import firebase from '../../LogSign/fbcon'; // Import firebase from fbcon.js
+
+export const usePostStore = () => {
+  const [postTitle, setPostTitle] = useState('');
+  const [postContent, setPostContent] = useState('');
+
+  const handleTitleChange = (title) => {
+    setPostTitle(title);
+  };
+
+  const handleContentChange = (content) => {
+    setPostContent(content);
+  };
+
+  const postToFirestore = async () => {
+    try {
+      const docRef = await addDoc(collection(firebase.firestore, 'Blogs_Contents'), {
+        title: postTitle,
+        content: postContent,
+        createdAt: serverTimestamp()
+      });
+      console.log('Document written with ID: ', docRef.id);
+    } catch (error) {
+      console.error('Error adding document: ', error);
+    }
+  };
+
+  return {
+    postTitle,
+    postContent,
+    handleTitleChange,
+    handleContentChange,
+    postToFirestore
+  };
+};
+
+export default usePostStore;
+
+
+
+

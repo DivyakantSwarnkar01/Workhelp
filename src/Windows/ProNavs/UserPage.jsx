@@ -77,7 +77,7 @@ function UserPage() {
       <Sdbrlft/>
       </div>
     
-    <div className="flex-1 flex-col h-full z-10  p-4 border border-blue-950 ml-1 mr-5">
+    <div className="flex-1 flex-col h-full z-10 p-2 border-t-8 border-blue-950 ml-1 mr-5">
       <div className="flex flex-col items-center py-10">
          <button
            className="bg-black text-white px-4 py-2 rounded-full shadow-md mb-4"
