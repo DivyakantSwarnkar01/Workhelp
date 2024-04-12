@@ -1,21 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import JoditEditor from 'jodit-react';
 import { usePostStore } from './PostStore';
+import { quillTitle }  from './AdPost';
+
 
 const Adit = React.memo(({ placeholder }) => {
     const editor = useRef(null);
-    const { handleContentChange, postToFirestore } = usePostStore();
+    const { handleContentChange, postToFirestore, postTitle, postContent } = usePostStore();
+    const [previousContent, setPreviousContent] = useState(postContent);
+
+
 
     const handlePost = () => {
-        // You can perform any post actions here, such as saving to Firebase
-        handleContentChange(editor.current.value)
-        postToFirestore();
         
-    };
+        postToFirestore(quillTitle, editor.current.value)
+  };
 
-    
- 
-    
     return (
         <>
         <JoditEditor
@@ -24,9 +24,10 @@ const Adit = React.memo(({ placeholder }) => {
                 readonly: false,
                 placeholder: placeholder || 'Start typing...',
                 style: {
-                    maxWidth: "700px", // Set maximum width here
-                    maxHeight: "500px" // Set minimum height if needed
-                }}}
+                    maxWidth: "700px",
+                    maxHeight: "500px"
+                }
+            }}
             tabIndex={4}
         />
         <button className='bg-green-400 hover:bg-green-700 mr-3 text-white font-bold py-2 px-4 border border-lime-700 rounded' onClick={handlePost}>Post</button>

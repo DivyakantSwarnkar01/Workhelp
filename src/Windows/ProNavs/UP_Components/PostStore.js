@@ -1,4 +1,3 @@
-// PostStore.js
 import { useState } from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import firebase from '../../LogSign/fbcon'; // Import firebase from fbcon.js
@@ -7,15 +6,18 @@ export const usePostStore = () => {
   const [postTitle, setPostTitle] = useState('');
   const [postContent, setPostContent] = useState('');
 
-  const handleTitleChange = (title) => {
-    setPostTitle(title);
-  };
+  /*const handleTitleChange = (postTitle) => {
+    setPostTitle(postTitle);
+  };*/
 
-  const handleContentChange = (content) => {
+
+ /* const handleContentChange = (content) => {
     setPostContent(content);
+    postToFirestore();
   };
+*/
 
-  const postToFirestore = async () => {
+  const postToFirestore = async (postTitle, postContent) => {
     try {
       const docRef = await addDoc(collection(firebase.firestore, 'Blogs_Contents'), {
         title: postTitle,
@@ -31,14 +33,10 @@ export const usePostStore = () => {
   return {
     postTitle,
     postContent,
-    handleTitleChange,
-    handleContentChange,
+    //handleTitleChange,
+    //handleContentChange,
     postToFirestore
   };
 };
 
 export default usePostStore;
-
-
-
-
