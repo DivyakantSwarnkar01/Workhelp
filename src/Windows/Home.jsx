@@ -91,7 +91,7 @@ console.log('paginationButtons:', paginationButtons);
             {posts.map(post => (
                 <div key={post.id} className="border p-4 mb-4 rounded-lg shadow-md hover:shadow-xl">
                   <div onClick={() => handlePostClick(post.id)}>
-                  <h2 className="text-xl font-bold mb-2">{post.title || 'Untitled'}</h2>
+                  <h2 className="text-xl font-bold mb-2" dangerouslySetInnerHTML={{__html: post.title || 'Untitled'}} />
                    <div><ExtractText postId={post.id} /></div>
                    {/* Check if post.description exists before accessing it */}
                    {post.description && (
