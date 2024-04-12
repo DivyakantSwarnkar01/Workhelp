@@ -1,5 +1,5 @@
 import React from "react";
-
+import AdSenseComponent02 from "../../AdSense/AdSenseComponent02";
 
 function rghs(){
 
@@ -9,9 +9,13 @@ function rghs(){
           <h2 className="text-lg font-bold text-green-800 mb-4"> Recently Added Posts</h2>
           <div className='bg-green-200'><p>Content 1</p></div>
         </div>
-        <div className="bg-green-600 p-4  mt-80 rounded-md hover:shadow-lg">
+        <div className="bg-green-600 p-4 mt-32 rounded-md hover:shadow-lg">
           <h2 className="text-lg font-bold text-green-800 mb-4">Advertisement</h2>
-          <div className='bg-green-200'><p>Content 2</p></div>
+          <div className='bg-green-300'><p className="text-gray-950">Content 2</p>
+            <div className='bg-green-200'>
+            <AdSenseComponent02/>
+            </div>
+          </div>
          </div>
       </div>
     )
