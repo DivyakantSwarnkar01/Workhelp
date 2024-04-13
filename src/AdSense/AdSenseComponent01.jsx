@@ -14,7 +14,9 @@ const AdSenseComponent01 = () => {
           data-ad-client="ca-pub-4584849168084150"
           data-ad-slot="1632186769"
           data-ad-format="auto"
-          data-full-width-responsive="true"></ins>
+          data-full-width-responsive="true">
+
+      </ins>
      </div>
   );
 };

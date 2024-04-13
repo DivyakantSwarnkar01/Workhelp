@@ -4,6 +4,9 @@ import { useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import firebase from '../LogSign/fbcon';
 import Social from './Social';
+import MetaTags from '../../Helmet/MetaTags';
+
+
 
 const Postdetails = () => {
   const { postId } = useParams(); // Use "postId" instead of "id"
@@ -16,7 +19,7 @@ const Postdetails = () => {
         const postDoc = doc(firebase.firestore, 'Blogs_Contents', postId);
         const docSnap = await getDoc(postDoc);
         if (docSnap.exists()) {
-          setPost({ id: docSnap.id, content: docSnap.data().content,
+          setPost({ id: docSnap.id, title: docSnap.data().title, content: docSnap.data().content,
             createdAt: docSnap.data().createdAt });
         } else {
           console.log('No such document!');
@@ -64,7 +67,7 @@ const Postdetails = () => {
        <p className="text-sm text-blue-400">
               {post.createdAt.toDate().toLocaleString()} {/* Convert to JavaScript Date object and format */}
             </p>
-        <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+        <h1 className="text-3xl font-bold mb-4" dangerouslySetInnerHTML={{__html: post.title}}/>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </div>
       {post && <Social url={window.location.href} title={post.title} />}
