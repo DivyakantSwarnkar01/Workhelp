@@ -7,6 +7,8 @@ import ExtractText from './Home/ExtractText';
 import NaviHome from './Home/naviHome';
 import RGHS from './Home/rghs';
 import SubHeader from './Home/SubHeader';
+import Postdetails from './Home/Postdetails';
+
 
 
 const firebaseConfig = {
@@ -92,17 +94,23 @@ console.log('paginationButtons:', paginationButtons);
             {posts.map(post => (
                 <div key={post.id} className="border p-4 mb-4 rounded-lg shadow-md hover:shadow-xl">
                   <div onClick={() => handlePostClick(post.id)}>
-                  <h2 className="text-xl font-bold mb-2" dangerouslySetInnerHTML={{__html: post.title || 'Untitled'}} />
-                   <div><ExtractText postId={post.id} /></div>
-                   {/* Check if post.description exists before accessing it */}
-                   {post.description && (
-                    <p className="text-gray-600 mb-4">{post.description.slice(0, 20)}</p>
-                  )}
+                    <h2 className="text-xl font-bold mb-2" dangerouslySetInnerHTML={{__html: post.title || 'Untitled'}} />
+                     <div><ExtractText postId={post.id} /></div>
+                     {/* Check if post.description exists before accessing it */}
+                     {post.description && (
+                      <p className="text-gray-600 mb-4">{post.description.slice(0, 20)}</p>
+                    )}
                   </div>
-                    {selectedPostId === post.id && (
+                  {selectedPostId === post.id && (
                   <div>
                     <div dangerouslySetInnerHTML={{__html: post.content }} />
                     {/* Additional details or content for the selected post */}
+                                 {/* Display createdAt date and time as a string */}
+                      <p className="text-sm text-gray-400">
+                        {post.createdAt.toDate().toLocaleString()} {/* Convert to JavaScript Date object and format */}
+                      </p>
+                     {/* Add the Link component here */}
+                   <Link to={`/post/${post.id}`} className="text-blue-500">Read more..</Link>
                   </div>
               )}
                </div>
@@ -115,9 +123,7 @@ console.log('paginationButtons:', paginationButtons);
             <RGHS/>
             </div>
 
-            <Routes>
-              <Route path="/posts/:postId" element={<PostDetails />} />
-            </Routes>
+
         </div>
     </div>
   );

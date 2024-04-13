@@ -13,7 +13,8 @@ import NewBlogs from '../Windows/Home/HomeSub/NewBlogs';
 import Quaries from '../Windows/Home/HomeSub/Quaries';
 import Recent from '../Windows/Home/HomeSub/Recent';
 import Search from '../Windows/Home/HomeSub/Search';
-
+import BlogPage from '../Windows/Home/Postdetails';
+import Postdetails from '../Windows/Home/Postdetails';
 
 
 
@@ -34,7 +35,8 @@ const routes = [
   { path: "/Home/NewBlogs", element: NewBlogs },
   { path: "/Home/Quaries?", element: Quaries },
   { path: "/Home/Recent", element: Recent },
-  { path: "/Home/SeSearch", element:Search },
+  { path: "/Home/Search", element:Search },
+  { path: "//post/:postId", element: Postdetails}
 ];
 
 export default routes;
