@@ -5,6 +5,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import firebase from '../LogSign/fbcon';
 import Social from './Social';
 import MetaTags from '../../Helmet/MetaTags';
+import { HelmetProvider } from 'react-helmet-async';
 
 
 
@@ -43,8 +44,15 @@ const Postdetails = () => {
   if (!post) return null;
 
   // Render the QuillJS content
-  return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-200 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+  return (<HelmetProvider>
+
+<div className="flex justify-center items-center min-h-screen bg-gray-200 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+
+      <MetaTags title={post.title}
+              description={post.content}
+              imageUrl={post.thumbnail}/>
+
+
     <div className="w-full max-w-lg p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-10 mt-10 mb-10">
       <div className="flex justify-between items-center mb-4">
         <label htmlFor="toggle" className="flex items-center cursor-pointer">
@@ -72,7 +80,8 @@ const Postdetails = () => {
       </div>
       {post && <Social url={window.location.href} title={post.title} />}
     </div>
-  </div>
+</div>
+</HelmetProvider>
   );
 };
 
