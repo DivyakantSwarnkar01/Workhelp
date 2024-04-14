@@ -1,9 +1,10 @@
 // LogSign.jsx
 import React, { useState } from 'react';
 import firebase from 'firebase/compat/app';
-import { auth } from './fbcon';
+import { auth, firestore } from './fbcon';
 import {  signInWithEmailAndPassword, createUserWithEmailAndPassword }  from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { addDoc, collection } from 'firebase/firestore';
 
 
 
@@ -42,11 +43,14 @@ const LogSign = () => {
 
 
       // Add additional user data to Firestore
-      /*await firebase.firestore().collection('users').doc(credential.user.uid).set({
+      await addDoc(collection(firestore, 'users'), {
         email: signupForm.email,
-        displayName: signupForm.displayName,
-        country: signupForm.country
-      });*/
+        name: signupForm.name,
+        country: signupForm.country,
+        userType: signupForm.userType,
+        phone: signupForm.phone,
+        company: signupForm.company
+      });
 
       console.log('Sign up successful');
     } catch (error) {
