@@ -25,6 +25,9 @@ export const usePostStore = () => {
         createdAt: serverTimestamp()
       });
       console.log('Document written with ID: ', docRef.id);
+              // Trigger a custom event or function
+        const event = new CustomEvent('documentWritten', { detail: docRef.id });
+        window.dispatchEvent(event);
     } catch (error) {
       console.error('Error adding document: ', error);
     }

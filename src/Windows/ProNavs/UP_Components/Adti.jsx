@@ -9,7 +9,19 @@ const Adit = React.memo(({ placeholder }) => {
     const { handleContentChange, postToFirestore, postTitle, postContent } = usePostStore();
     const [previousContent, setPreviousContent] = useState(postContent);
 
+    useEffect(() => {
+        const handleDocumentWritten = (event) => {
+            const docId = event.detail;
+            console.log('Document written with ID:', docId);
+            alert(`Document written Successfully with ID: ${docId}`);
+        };
 
+        window.addEventListener('documentWritten', handleDocumentWritten);
+
+        return () => {
+            window.removeEventListener('documentWritten', handleDocumentWritten);
+        };
+    }, []);
 
     const handlePost = () => {
         
