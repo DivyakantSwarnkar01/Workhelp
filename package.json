@@ -1,7 +1,7 @@
 {
   "name": "workhelp",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,15 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-pdf/renderer": "^3.4.0",
     "dompurify": "^3.0.11",
     "file-saver": "^2.0.5",
     "firebase": "^10.11.0",
     "html-to-image": "^1.11.11",
-    "html2canvas": "^1.4.1",
-    "jodit": "^4.0.18",
     "jodit-react": "^4.0.15",
-    "pdf-lib": "^1.17.1",
     "pdf2pic": "^3.1.1",
     "pdf2png": "^1.0.5",
     "pdfjs-dist": "^4.0.379",
@@ -31,11 +27,7 @@
     "react-pdf": "^7.7.1",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.22.3",
-    "react-router-sitemap-maker": "^1.1.0",
-    "sitemap-generator": "^8.5.1",
-    "tinymce": "^7.0.0",
-    "vite-plugin-top-level-await": "^1.4.1",
-    "ytdl-core": "^4.11.5"
+    "vite-plugin-top-level-await": "^1.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",

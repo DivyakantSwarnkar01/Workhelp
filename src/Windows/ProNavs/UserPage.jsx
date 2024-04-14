@@ -7,8 +7,6 @@ import { signOut } from 'firebase/auth';
 import Sdbrlft from './UP_Components/Sdbrlft';
 import Sdbrrgt from './UP_Components/Sdbrrgt';
 import AdPost from './UP_Components/AdPost';
-import PostFire from './UP_Components/PostFire';
-import Plus3D from '../../assets/Plus3D.png';
 import Adit from './UP_Components/Adti';
 
 

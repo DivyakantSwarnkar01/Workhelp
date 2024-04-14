@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, query, getDocs } from 'firebase/firestore';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import PostDetails from './Home/Postdetails'; // Import the PostDetails component
 import ExtractText from './Home/ExtractText';
 import NaviHome from './Home/naviHome';
 import RGHS from './Home/rghs';
 import SubHeader from './Home/SubHeader';
-import Postdetails from './Home/Postdetails';
-
+import Pagination from './Home/HomeSub/Pagination';
 
 
 const firebaseConfig = {
@@ -52,32 +50,7 @@ const Home = () => {
   };
 
 
-  // Pagination calculation
-const indexOfLastPost = currentPage * postsPerPage;
-const indexOfFirstPost = indexOfLastPost - postsPerPage;
-
-// Ensure posts array is not empty before slicing
-const currentPosts = posts.length > 0 ? posts.slice(indexOfFirstPost, indexOfLastPost) : [];
-
-console.log('currentPage:', currentPage);
-console.log('postsPerPage:', postsPerPage);
-console.log('indexOfLastPost:', indexOfLastPost);
-console.log('indexOfFirstPost:', indexOfFirstPost);
-console.log('currentPosts:', currentPosts);
-
-// Pagination buttons
-const paginationButtons = Array.from({ length: Math.ceil(posts.length / postsPerPage) }, (_, i) => (
-  <button key={i} onClick={() => paginate(i + 1)} className="mx-1 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700">
-    {i + 1}
-  </button>
-));
-
-// Define your pagination function
-const paginate = (pageNumber) => {
-  setCurrentPage(pageNumber); // Assuming you have a state variable for currentPage
-}
-
-console.log('paginationButtons:', paginationButtons);
+ 
 
   return (
     <div className='bg-zinc-200'>
@@ -90,7 +63,7 @@ console.log('paginationButtons:', paginationButtons);
       </div>
 
       <div className="flex mb-5">
-          <div className="w-3/4  ml-5 mt-5">
+          <div className="w-3/4 bg-white  ml-5 mt-5">
             {posts.map(post => (
                 <div key={post.id} className="border p-4 mb-4 rounded-lg shadow-md hover:shadow-xl">
                   <div onClick={() => handlePostClick(post.id)}>
@@ -115,8 +88,10 @@ console.log('paginationButtons:', paginationButtons);
               )}
                </div>
             ))}
-               {/* Pagination */}
-                   <div className="flex justify-center mt-8">{paginationButtons}</div>
+                {/* Use Suspense to render Pagination component lazily */}
+              <Suspense fallback={<div>Loading...</div>}>
+                <Pagination currentPage={currentPage} postsPerPage={postsPerPage} posts={posts} setCurrentPage={setCurrentPage} /> 
+              </Suspense>
           </div>
         
             <div>
