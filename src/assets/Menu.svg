@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="76mm" height="40mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 7600 4000"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#FAFAFA;stroke-width:17.64;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .fil0 {fill:url(#id0)}
+    .fil2 {fill:url(#id1)}
+    .fil5 {fill:url(#id2)}
+    .fil3 {fill:url(#id3)}
+    .fil1 {fill:url(#id4)}
+    .fil4 {fill:url(#id5)}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="8348.5" y1="3314.1" x2="445.88" y2="3966.61">
+   <stop offset="0" style="stop-opacity:1; stop-color:#51BD2A"/>
+   <stop offset="0.490196" style="stop-opacity:1; stop-color:#87D16C"/>
+   <stop offset="0.85098" style="stop-opacity:1; stop-color:#BDE6AE"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:white"/>
+  </linearGradient>
+  <linearGradient id="id1" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="8247.23" y1="1987.88" x2="344.61" y2="2640.4">
+  </linearGradient>
+  <linearGradient id="id2" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="8089.38" y1="94.31" x2="186.76" y2="746.83">
+  </linearGradient>
+  <linearGradient id="id3" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="8190.65" y1="1420.53" x2="288.03" y2="2073.04">
+  </linearGradient>
+  <linearGradient id="id4" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="8289.74" y1="2628.53" x2="387.11" y2="3281.05">
+  </linearGradient>
+  <linearGradient id="id5" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="8131.89" y1="734.97" x2="229.27" y2="1387.48">
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_2914466196192">
+   <polygon class="fil0 str0" points="7456.57,3579.97 391.77,3311.28 421.05,3665.87 7485.85,3934.57 "/>
+   <polygon class="fil1 str0" points="7399.97,2894.49 333,2625.71 362.28,2980.31 7429.25,3249.09 "/>
+   <polygon class="fil2 str0" points="7347.04,2253.44 290.5,1985.06 319.77,2339.65 7376.32,2608.04 "/>
+   <polygon class="fil3 str0" points="7300.22,1686.46 233.92,1417.71 263.2,1772.3 7329.5,2041.06 "/>
+   <polygon class="fil4 str0" points="7243.62,1000.98 175.16,732.14 204.43,1086.74 7272.9,1355.57 "/>
+   <polygon class="fil5 str0" points="7190.69,359.93 132.65,91.49 161.93,446.08 7219.97,714.52 "/>
+  </g>
+ </g>
+</svg>
