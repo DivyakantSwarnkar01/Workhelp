@@ -1,6 +1,6 @@
 // Postdetails.jsx
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import firebase from '../LogSign/fbcon';
 import Social from './Social';
@@ -13,6 +13,8 @@ const Postdetails = () => {
   const { postId } = useParams(); // Use "postId" instead of "id"
   const [post, setPost] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const location = useLocation();
+  const canonURL = 'https://workhelper.shop' + location.pathname ;
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -50,7 +52,8 @@ const Postdetails = () => {
 
       <MetaTags title={post.title}
               description={post.content}
-              imageUrl={post.thumbnail}/>
+              imageUrl={post.thumbnail}
+              canonicalUrl= {canonURL}/>
 
 
     <div className="w-full max-w-lg p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-10 mt-10 mb-10">
