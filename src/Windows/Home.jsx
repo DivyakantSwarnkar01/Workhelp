@@ -7,7 +7,7 @@ import NaviHome from './Home/naviHome';
 import RGHS from './Home/rghs';
 import SubHeader from './Home/SubHeader';
 import Pagination from './Home/HomeSub/Pagination';
-
+import RollingText from './Home/Rolling_txt/Rolling_txt';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAw7s53wOvlN_HKZDOc_5CiiDHDKwd5DJI",
@@ -60,6 +60,9 @@ const Home = () => {
 
       <div className='w-auto h-auto  mt-3 ml-3 mr-3 border p-4 mb-4 rounded-lg shadow-md'>
         <NaviHome/>
+      </div>
+      <div>
+        <RollingText/>
       </div>
 
       <div className="flex mb-5">

@@ -42,8 +42,8 @@ const Adit = React.memo(({ placeholder }) => {
             }}
             tabIndex={4}
         />
-        <button className='bg-green-400 hover:bg-green-700 mr-3 text-white font-bold py-2 px-4 border border-lime-700 rounded' onClick={handlePost}>Post</button>
-        <button className='bg-red-500 hover:bg-red-700 mr-3 text-white font-bold py-2 px-4 border border-lime-700 rounded'>Reset</button>
+        <button className='text-white font-bold py-2 px-4 border rounded bg-gradient-to-r from-emerald-300 to-lime-500 hover:from-blue-700 hover:to-pink-500 mr-4 mt-2' onClick={handlePost}>Post</button>
+        <button className='bg-gradient-to-r from-red-300 to-red-900 hover:from-purple-400 hover:to-blue-800 mr-3 text-white font-bold py-2 px-4 border rounded'>Reset</button>
         </>
     );
 });

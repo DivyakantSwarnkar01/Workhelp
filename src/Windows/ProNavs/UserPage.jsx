@@ -37,10 +37,12 @@ function UserPage() {
       <ul className='flex flex-row absolute align-left'>
         <li className='text-white ml-3 mr-3 mt-2'>General</li>
         <li className='text-white ml-3 mr-3 mt-2'>Tables</li>
-        <li className='text-white ml-3 mr-3 mt-2'>H.C.M. Console</li>
-        <li className='text-white ml-3 mr-3 mt-2'>C.R.M. Console</li>
+        <li className='text-white ml-3 mr-3 mt-2'>H.C.M. </li>
+        <li className='text-white ml-3 mr-3 mt-2'>C.R.M. </li>
         <li className='text-white ml-3 mr-3 mt-2'>C.P.C.</li>
         <li className='text-white ml-3 mr-3 mt-2'>Project Management</li>
+        <li className='text-white ml-3 mr-3 mt-2'>Advertising</li>
+        <li className='text-white ml-3 mr-3 mt-2'>Add Features</li>
       </ul>
      </div>
   <div className="flex mb-40">
@@ -49,6 +51,13 @@ function UserPage() {
       </div>
     
     <div className="flex-1 flex-col h-full z-10 p-2 border-t-8 border-blue-950 ml-1 mr-5">
+    <div className="grid gap-4 grid-cols-4 bg-lime-100 items-center">
+      <div className='border-box bg-lime-300 border-green-400'><p className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center'> Details</p></div>
+      <div className='border-box bg-lime-300 border-green-400'><p className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center'> Meta Data</p></div>
+      <div className='border-box bg-lime-300 border-green-400'><p className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center'> Review</p></div>
+      <div className='border-box bg-lime-300 border-green-400'><p className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center'> Extra</p></div>
+    </div>
+
       <div className="flex flex-col items-center py-10">
       <Dialog/>
       </div>
