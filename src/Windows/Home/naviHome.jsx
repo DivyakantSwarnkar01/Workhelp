@@ -11,28 +11,28 @@ function naviHome (){
             <span className='ml-0 m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/World'}>World</Link>
             </span>
-            <span className='m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
+            <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/India'}>India</Link>
             </span>
-            <span className='m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
+            <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/Polity'}>Polity</Link>
             </span>
-            <span className='m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
+            <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/Economy'}>Economy</Link>
             </span>
-            <span className='m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
+            <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/Countries'}>Countries</Link>
             </span>
-            <span className='m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
+            <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/Environment'}>Environment</Link>
             </span>
-            <span className='m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
+            <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/Society'}>Society</Link>
             </span>
-            <span className='m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
+            <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/Business'}>Business</Link>
             </span>
-            <span className='m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
+            <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/Science'}>Science</Link>
             </span>
             <span className='ml-1 m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
