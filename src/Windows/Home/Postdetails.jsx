@@ -6,7 +6,8 @@ import firebase from '../LogSign/fbcon';
 import Social from './Social';
 import MetaTags from '../../Helmet/MetaTags';
 import { HelmetProvider } from 'react-helmet-async';
-
+import { htmlToText } from 'html-to-text';
+import './PostDetails.css';
 
 
 const Postdetails = () => {
@@ -33,7 +34,7 @@ const Postdetails = () => {
     };
   
     fetchPost();
-  
+
     // Logic to apply dark mode theme
     if (isDarkMode) {
       document.body.classList.add('dark');
@@ -45,15 +46,32 @@ const Postdetails = () => {
 
   if (!post) return null;
 
+
+    // Extract text content of post.title
+    const quillHtmlContent = post.title;
+    const quillTitle = htmlToText(quillHtmlContent);
+
+    //extracting Content from Jodit editor 
+    const htmlContent = post.content;
+
+     // Extract text content from HTML
+     const textContent = htmlToText(htmlContent);
+
+     // Slice the text content to just 10 words
+     const slicedContent = textContent.split(' ').slice(0, 50).join(' ');
+    
   // Render the QuillJS content
   return (<HelmetProvider>
 
 <div className="flex justify-center items-center min-h-screen bg-gray-200 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
-
+  <h1 className="sr-only">{quillTitle}</h1>
       <MetaTags title={post.title}
               description={post.content}
               imageUrl={post.thumbnail}
-              canonicalUrl= {canonURL}/>
+              canonicalUrl= {canonURL}
+              headTitle={quillTitle}
+              descriptionContent={slicedContent}
+              />
 
 
     <div className="w-full max-w-lg p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-10 mt-10 mb-10">

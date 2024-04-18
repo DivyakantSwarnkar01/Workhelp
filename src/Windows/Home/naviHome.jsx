@@ -35,13 +35,13 @@ function naviHome (){
             <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/Science'}>Science</Link>
             </span>
-            <span className='ml-1 m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
+            <span className='ml-2 m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/Sports'}>Sports</Link>
             </span>
-            <span className='ml-1 m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
+            <span className='ml-2 m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/Health'}>Health</Link>
             </span>
-            <span className='ml-0 m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
+            <span className='ml-1 m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/Technology'}>Technology</Link>
             </span>
         </div>
