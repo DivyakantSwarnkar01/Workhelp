@@ -71,11 +71,7 @@ const Home = () => {
                 <div key={post.id} className="border p-4 mb-4 rounded-lg shadow-md hover:shadow-xl">
                   <div onClick={() => handlePostClick(post.id)}>
                     <h2 className="text-xl font-bold mb-2" dangerouslySetInnerHTML={{__html: post.title || 'Untitled'}} />
-                     <div><ExtractText postId={post.id} /></div>
-                     {/* Check if post.description exists before accessing it */}
-                     {post.description && (
-                      <p className="text-gray-600 mb-4">{post.description.slice(0, 20)}</p>
-                    )}
+                     <div><ExtractText postId={post.id}/></div>
                   </div>
                   {selectedPostId === post.id && (
                   <div>

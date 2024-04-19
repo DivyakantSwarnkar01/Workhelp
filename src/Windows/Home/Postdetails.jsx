@@ -65,8 +65,8 @@ const Postdetails = () => {
 
 <div className="flex justify-center items-center min-h-screen bg-gray-200 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
   <h1 className="sr-only">{quillTitle}</h1>
-      <MetaTags title={post.title}
-              description={post.content}
+      <MetaTags Title={quillTitle}
+              description={slicedContent}
               imageUrl={post.thumbnail}
               canonicalUrl= {canonURL}
               headTitle={quillTitle}
