@@ -44,8 +44,10 @@ const Downloader = () => {
              </button>
            </div> 
          </div>
-         {showVideoSearch && <VideoSearchComponent />}
-    </div>
+         <div className='Justify-centre flex-row'>  
+         {showVideoSearch && <VideoSearchComponent  />}
+         </div>
+       </div>
     </div>
   );
 };
