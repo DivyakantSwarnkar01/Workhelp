@@ -7,20 +7,8 @@ import NaviHome from './Home/naviHome';
 import RGHS from './Home/rghs';
 import SubHeader from './Home/SubHeader';
 import Pagination from './Home/HomeSub/Pagination';
+import { db } from '../Model/DbCon';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAw7s53wOvlN_HKZDOc_5CiiDHDKwd5DJI",
-  authDomain: "workhelper-261bf.firebaseapp.com",
-  projectId: "workhelper-261bf",
-  storageBucket: "workhelper-261bf.appspot.com",
-  messagingSenderId: "359079196777",
-  appId: "1:359079196777:web:c0f8603146e3e0ec724af8",
-  measurementId: "G-YYEWCSKBRM"
-};
-
-// Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-const db = getFirestore(firebaseApp);
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -101,7 +89,7 @@ const Home = () => {
                      
                   </div>
                   <div>
-                    <div dangerouslySetInnerHTML={{__html: `${post.content.slice(0, 100)}...`}} />
+                    <div dangerouslySetInnerHTML={{__html: `${post.content.slice(0, 200)}...`}} />
                     {/* Additional details or content for the selected post */}
                     {/* Display createdAt date and time as a string */}
                     <p className="text-sm text-gray-400">

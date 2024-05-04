@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import AdSenseComponent02 from "../AdSense/AdSenseComponent02";
 import './Home/PostDetails.css'
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 
 
@@ -9,6 +10,10 @@ function jobs(){
 
 
         return(
+          <HelmetProvider>
+            <Helmet>
+            <link rel="canonical" href={`https://www.workhelper.shop/jobs`}/>
+            </Helmet>
             <div>
             <div className="flex-col box-border bg-lime-500 border-t-0 w-full h-36">
             </div>
@@ -24,6 +29,7 @@ function jobs(){
              </div>
             <div className=""><AdSenseComponent02/></div>
             </div>
+            </HelmetProvider>
         )
 
 

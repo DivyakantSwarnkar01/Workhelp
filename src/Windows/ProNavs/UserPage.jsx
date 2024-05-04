@@ -1,24 +1,18 @@
-import React, { useState, useRef  } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import Dialog from './Dialog';
-import Protected from './Protected';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../LogSign/fbcon';
 import { signOut } from 'firebase/auth';
 import Sdbrlft from './UP_Components/Sdbrlft';
 import Sdbrrgt from './UP_Components/Sdbrrgt';
-import AdPost from './UP_Components/AdPost';
-import Adit from './UP_Components/Adti';
-
-
+import AdPost, { quillTitle } from './UP_Components/AdPost';
+import Adit from './UP_Components/Adit.jsx';
+import eventBus from './UP_Components/ButtonClicked.js';
 
 function UserPage() {
-  const [dialogs, setDialogs] = useState([]);
-
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
 
-
- 
 
   const handleLogout = async () => {
     try {
@@ -30,6 +24,12 @@ function UserPage() {
       console.error(error);
     }
   }
+
+  const handlePost2 = () => {
+      eventBus.emit('ButtonClicked');
+  };
+
+
 
   return (
 <div className='flex flex-col'>
@@ -64,6 +64,8 @@ function UserPage() {
       <div className='flex-col h-screen p-4'>
         <AdPost/>
         <Adit/>
+        <button className='text-white font-bold py-2 px-4 border rounded bg-gradient-to-r from-emerald-300 to-lime-500 hover:from-blue-700 hover:to-pink-500 mr-4 mt-2' onClick={handlePost2}>Post</button>
+        <button className='bg-gradient-to-r from-red-300 to-red-900 hover:from-purple-400 hover:to-blue-800 mr-3 text-white font-bold py-2 px-4 border rounded'>Reset</button>
       <h2>Account: {user && user.email}</h2>
       <button className='bg-red-500 hover:bg-red-800 ml-3 mr-3 text-white font-bold py-2 px-4 border border-lime-700 rounded' onClick={handleLogout}>Logout</button>
       </div>

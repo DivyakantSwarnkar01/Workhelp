@@ -1,51 +1,78 @@
-import React, { useState } from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const Converter = () => {
-  const [imageSrc, setImageSrc] = useState('');
+ 
 
-  const handleFileChange = async (event) => {
-    try {
-      const url = 'http://127.0.0.1:8000/convert/pdf-to-image/'; // Specify the URL of your FastAPI server
-      const pdfFile = event.target.files[0]; // Get the uploaded PDF file
 
-      // Create a FormData object to store the file
-      const formData = new FormData();
-      formData.append('file', pdfFile);
-
-      // Send a POST request with the PDF file as form data
-      const response = await fetch(url, {
-        method: 'POST',
-        body: formData
-      });
-
-      // Check if the request was successful
-      if (response.ok) {
-        // Parse the JSON response
-        const data = await response.json();
-        // Assuming data.images is an array of image URLs, set the first image as the source
-        if (data.images && data.images.length > 0) {
-          setImageSrc(data.images[0]);
-        } else {
-          throw new Error('No images found in response');
-        }
-      } else {
-        throw new Error('Failed to convert PDF to images');
-      }
-    } catch (error) {
-      // Handle errors
-      console.error('Error:', error);
-    }
-  };
 
   return (
+    <HelmetProvider><Helmet> <link rel="canonical" href='https://www.workhelper.shop/Converter'/>
+     </Helmet>
     <div className='box-border bg-lime-500 border-t-0 w-full h-36'>
-      <input type="file" accept=".pdf" onChange={handleFileChange} />
-      {imageSrc && (
-        <div>
-          <img src={imageSrc} alt="Converted PDF page" />
-        </div>
-      )}
     </div>
+    <div className=' border-2 border-dashed border-cyan-500 h-96 w-auto m-6'>
+      <div className='flex'>
+         <div className='flex-row rounded-md'>
+             <button className="bg-indigo-500 ml-0 mt-2  bg-rosy hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 z-20">
+               PDF To JPEG
+             </button>
+         </div>   
+         <div className='flex-row rounded-md'>
+             <button className="bg-indigo-500 ml-2 mt-2  bg-rosy hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 z-20">
+               JPEG to PDF
+             </button>
+         </div>
+         <div className='flex-row rounded-md'>
+             <button className="bg-indigo-500 ml-2 mt-2  bg-rosy hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 z-20">
+               PDF to PNG
+             </button>
+         </div>
+         <div className='flex-row rounded-md'>
+             <button className="bg-indigo-500 ml-2 mt-2  bg-rosy hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 z-20">
+               PNG to PDF
+             </button>
+         </div>
+         <div className='flex-row rounded-md'>
+             <button className="bg-indigo-500 ml-2 mt-2  bg-rosy hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 z-20">
+               Image to Excel Sheet
+             </button>
+         </div>
+         <div className='flex-row rounded-md'>
+             <button className="bg-indigo-500 ml-2 mt-2  bg-rosy hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 z-20">
+               Excel sheet to Image
+             </button>
+         </div> 
+         <div className='flex-row rounded-md'>
+             <button className="bg-indigo-500 ml-2 mt-2  bg-rosy hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 z-20">
+               Photo Compress
+             </button>
+         </div>
+         <div className='flex-row rounded-md'>
+             <button className="bg-indigo-500 ml-2 mt-2  bg-rosy hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 z-20">
+               PDF Compress
+             </button>
+         </div>
+         <div className='flex-row rounded-md'>
+             <button className="bg-indigo-500 ml-2 mt-2  bg-rosy hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 z-20">
+               File Compress
+             </button>
+         </div>
+         <div className='flex-row rounded-md'>
+             <button className="bg-indigo-500 ml-2 mt-2  bg-rosy hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 z-20">
+               Excel Sitemap
+             </button>
+         </div>
+         <div className='flex-row rounded-md'>
+             <button className="bg-indigo-500 ml-2 mt-2  bg-rosy hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-white font-bold py-2 px-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 z-20">
+              Other Extension Convert
+             </button>
+         </div>
+      </div>
+      <div className='bg-transparent justify-center mt-32 ml-96'>
+        All File Conversion tool will appear here !!!
+      </div>
+    </div>    
+    </HelmetProvider>
   );
 };
 

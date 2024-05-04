@@ -1,7 +1,6 @@
-import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-function MetaTags({ Title, description, imageUrl, canonicalUrl, headTitle, descriptionContent, JSstyle }) {
+function MetaTags({ Title, description, imageUrl, headTitle, descriptionContent }) {
     return (
         <Helmet>
             <meta name="twitter:card" content="summary_large_image" />
@@ -9,7 +8,6 @@ function MetaTags({ Title, description, imageUrl, canonicalUrl, headTitle, descr
             <meta name="twitter:title" content={Title} />
             <meta name="twitter:description" content={description} />
             <meta name="twitter:image" content={imageUrl} />
-            <link rel="canonical" href={canonicalUrl} />
             <title>{headTitle}</title>
             <meta name="description" content={descriptionContent} />
         </Helmet>

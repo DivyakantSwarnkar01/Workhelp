@@ -1,55 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import { initializeApp } from 'firebase/app';
-import DOMPurify from 'dompurify'; // Import DOMPurify
+import { useState, useEffect } from 'react';
+import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
+import { db } from './../../Model/DbCon.js';
+import { htmlToText } from 'html-to-text'; // Import htmlToText function from 'html-to-text';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAw7s53wOvlN_HKZDOc_5CiiDHDKwd5DJI",
-  authDomain: "workhelper-261bf.firebaseapp.com",
-  projectId: "workhelper-261bf",
-  storageBucket: "workhelper-261bf.appspot.com",
-  messagingSenderId: "359079196777",
-  appId: "1:359079196777:web:c0f8603146e3e0ec724af8",
-  measurementId: "G-YYEWCSKBRM"
-};
-// Initialize Firebase app
-const firebaseApp = initializeApp(firebaseConfig);
-
-const ExtractText = ({ postId }) => {
-  const [text, setText] = useState('');
+const ExtractText = () => {
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const fetchText = async () => {
+    const fetchPosts = async () => {
       try {
-        const db = getFirestore(firebaseApp);
-        const postDoc = doc(db, 'Blogs_Contents', postId);
-        const docSnap = await getDoc(postDoc);
-        if (docSnap.exists()) {
-          const textWithTags = docSnap.data().content;
-          const sanitizedHtml = DOMPurify.sanitize(textWithTags);
-          setText(sanitizedHtml);
+        const q = query(collection(db, 'Blogs_Contents'), orderBy('createdAt'), limit(5));
+        const querySnapshot = await getDocs(q);
 
-          const wordsArray = sanitizedHtml.split(' ');
-          let firstFewWords = wordsArray.slice(0, 20).join(' ');
-          if (wordsArray.length > 20) {
-            firstFewWords += '...';
-          }
-          setText(firstFewWords);
-        } else {
-          setText('Post not found.');
-        }
+        const fetchedPosts = querySnapshot.docs.map(doc => {
+          const postData = doc.data();
+          const titleText = postData.title ? htmlToText(postData.title) : 'Untitled';
+          return {
+            id: doc.id,
+            title: titleText,
+            createdAt: postData.createdAt ? postData.createdAt.toDate().toLocaleString() : 'Unknown',
+          };
+        });
+        setPosts(fetchedPosts);
       } catch (error) {
-        console.error("Error getting document:", error);
-        setText('Error fetching text.');
+        console.error("Error fetching posts:", error);
       }
     };
 
-    fetchText();
-  }, [postId]);
+    fetchPosts();
+  }, []);
 
   return (
     <div>
-      <div dangerouslySetInnerHTML={{ __html: text }} />
+      {posts.map(post => (
+        <div className='m-3 bg-slate-400 hover:z-20' key={post.id}>
+          <h2 className= ' text-slate-100 text-sm'> {post.title}</h2>
+          <p className='text-sm'> {post.createdAt}</p>
+        </div>
+      ))}
     </div>
   );
 };
