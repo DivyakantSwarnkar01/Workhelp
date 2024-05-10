@@ -8,11 +8,22 @@ import Sdbrrgt from './UP_Components/Sdbrrgt';
 import AdPost, { quillTitle } from './UP_Components/AdPost';
 import Adit from './UP_Components/Adit.jsx';
 import eventBus from './UP_Components/ButtonClicked.js';
+import MetaOption from './UP_Components/MetaPost.jsx';
+
+
+
+
+
 
 function UserPage() {
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
+  const [activeOption, setActiveOption] = useState('option1');
 
+
+  const handleOptionClick = (option) => {
+    setActiveOption(option);
+  };
 
   const handleLogout = async () => {
     try {
@@ -52,18 +63,59 @@ function UserPage() {
     
     <div className="flex-1 flex-col h-full z-10 p-2 border-t-8 border-blue-950 ml-1 mr-5">
     <div className="grid gap-4 grid-cols-4 bg-lime-100 items-center">
-      <div className='border-box bg-lime-300 border-green-400'><p className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center'> Details</p></div>
-      <div className='border-box bg-lime-300 border-green-400'><p className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center'> Meta Data</p></div>
-      <div className='border-box bg-lime-300 border-green-400'><p className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center'> Review</p></div>
-      <div className='border-box bg-lime-300 border-green-400'><p className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center'> Extra</p></div>
+      <div className='border-box bg-lime-300 border-green-400'><button className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center w-full' onClick={() => handleOptionClick('option1')}> Details</button></div>
+      <div className='border-box bg-lime-300 border-green-400'><button className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center w-full' onClick={() => handleOptionClick('option2')}>Meta Data</button></div>
+      <div className='border-box bg-lime-300 border-green-400'><button className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center w-full' onClick={() => handleOptionClick('option3')}> Review</button></div>
+      <div className='border-box bg-lime-300 border-green-400'><button className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center w-full' onClick={() => handleOptionClick('option4')}> Extra</button></div>
     </div>
 
       <div className="flex flex-col items-center py-10">
       <Dialog/>
       </div>
-      <div className='flex-col h-screen p-4'>
-        <AdPost/>
-        <Adit/>
+
+      {activeOption === 'option1' && (
+        <div>
+          <div className='flex-col h-screen p-4'>
+            <AdPost/>
+            <Adit/>
+          </div>        
+        </div>
+      )}
+
+      
+              {activeOption === 'option2' && (
+                      <div>
+                        <div className='flex-col h-screen p-4'>
+                         <MetaOption/>
+                        </div>        
+                      </div>
+                    )}
+
+
+
+             {activeOption === 'option3' && (
+                     <div>
+                       <div className='flex-col h-screen p-4'>
+                        This is 3rd Seat!
+                       </div>        
+                     </div>
+                   )}
+
+
+
+          {activeOption === 'option4' && (
+                  <div>
+                    <div className='flex-col h-screen p-4'>
+                    This is 4th Table
+                    </div>        
+                  </div>
+                )}
+
+
+      
+
+
+      <div>
         <button className='text-white font-bold py-2 px-4 border rounded bg-gradient-to-r from-emerald-300 to-lime-500 hover:from-blue-700 hover:to-pink-500 mr-4 mt-2' onClick={handlePost2}>Post</button>
         <button className='bg-gradient-to-r from-red-300 to-red-900 hover:from-purple-400 hover:to-blue-800 mr-3 text-white font-bold py-2 px-4 border rounded'>Reset</button>
       <h2>Account: {user && user.email}</h2>

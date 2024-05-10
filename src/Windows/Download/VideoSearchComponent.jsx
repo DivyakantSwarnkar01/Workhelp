@@ -71,7 +71,7 @@ const VideoSearchComponent = () => {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Enter video ID"
+          placeholder="Enter video Link here!"
           className='m-3 '
         />
         <button type="submit" className='Flex-col border-4 border-amber-500 bg-rose-600 ml-20 mt-10'>Search</button>
