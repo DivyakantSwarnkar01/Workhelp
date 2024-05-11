@@ -1,33 +1,35 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import firebase from '../../LogSign/fbcon'; // Import firebase from fbcon.js
+import firebase from '../../LogSign/fbcon';
+import { FormDataContext } from './FormDataContext';
 
 export const usePostStore = () => {
   const [postTitle, setPostTitle] = useState('');
   const [postContent, setPostContent] = useState('');
-
-  /*const handleTitleChange = (postTitle) => {
-    setPostTitle(postTitle);
-  };*/
-
-
- /* const handleContentChange = (content) => {
-    setPostContent(content);
-    postToFirestore();
-  };
-*/
+  const { formData } = useContext(FormDataContext) || {}; // Destructuring with default empty object
 
   const postToFirestore = async (postTitle, postContent) => {
     try {
-      const docRef = await addDoc(collection(firebase.firestore, 'Blogs_Contents'), {
+      const docData = {
         title: postTitle,
         content: postContent,
-        createdAt: serverTimestamp()
-      });
+        createdAt: serverTimestamp(),
+      };
+
+      // Add formData to the document if option1 exists
+      if (formData && formData.option1) {
+        const { option1 } = formData;
+        for (const key in option1) {
+          docData[key] = option1[key];
+        }
+      }
+
+      const docRef = await addDoc(collection(firebase.firestore, 'Blogs_Contents'), docData);
+
       console.log('Document written with ID: ', docRef.id);
-              // Trigger a custom event or function
-        const event = new CustomEvent('documentWritten', { detail: docRef.id });
-        window.dispatchEvent(event);
+      // Trigger a custom event or function
+      const event = new CustomEvent('documentWritten', { detail: docRef.id });
+      window.dispatchEvent(event);
     } catch (error) {
       console.error('Error adding document: ', error);
     }
@@ -35,9 +37,9 @@ export const usePostStore = () => {
 
   return {
     postTitle,
+    setPostTitle,
     postContent,
-    //handleTitleChange,
-    //handleContentChange,
+    setPostContent,
     postToFirestore
   };
 };

@@ -34,6 +34,7 @@ import Business from '../Windows/Home/naviHome/Business';
 
 const routes = [
   { path: "/", element: Home },
+  { path: "/Home", element: Home},
   { path: "/Downloader", element: Downloader },
   { path: "/jobs", element: Jobs },
   { path: "/Converter", element: Converter },

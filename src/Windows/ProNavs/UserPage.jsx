@@ -8,8 +8,8 @@ import Sdbrrgt from './UP_Components/Sdbrrgt';
 import AdPost, { quillTitle } from './UP_Components/AdPost';
 import Adit from './UP_Components/Adit.jsx';
 import eventBus from './UP_Components/ButtonClicked.js';
-import MetaOption from './UP_Components/MetaPost.jsx';
-
+import DetailsOption from './UP_Components/DetailsPost.jsx';
+import { FormDataProvider } from './UP_Components/FormDataContext.jsx';
 
 
 
@@ -20,10 +20,6 @@ function UserPage() {
   const navigate = useNavigate();
   const [activeOption, setActiveOption] = useState('option1');
 
-
-  const handleOptionClick = (option) => {
-    setActiveOption(option);
-  };
 
   const handleLogout = async () => {
     try {
@@ -60,19 +56,21 @@ function UserPage() {
       <div className="w-1/4 h-screen p-4 border-r border-gray-200 mt-5 ml-3">
       <Sdbrlft/>
       </div>
-    
-    <div className="flex-1 flex-col h-full z-10 p-2 border-t-8 border-blue-950 ml-1 mr-5">
-    <div className="grid gap-4 grid-cols-4 bg-lime-100 items-center">
-      <div className='border-box bg-lime-300 border-green-400'><button className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center w-full' onClick={() => handleOptionClick('option1')}> Details</button></div>
-      <div className='border-box bg-lime-300 border-green-400'><button className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center w-full' onClick={() => handleOptionClick('option2')}>Meta Data</button></div>
-      <div className='border-box bg-lime-300 border-green-400'><button className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center w-full' onClick={() => handleOptionClick('option3')}> Review</button></div>
-      <div className='border-box bg-lime-300 border-green-400'><button className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center w-full' onClick={() => handleOptionClick('option4')}> Extra</button></div>
+      
+    <div className="flex-1 flex-col h-auto z-10 p-2 border-t-8 border-blue-950 ml-1 mr-5">
+    <FormDataProvider>
+    <div className="grid gap-5 grid-cols-5 bg-lime-100 items-center">
+      <div className='border-box bg-lime-300 border-green-400'><button className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center w-full' onClick={() => setActiveOption('option1')}> Post</button></div>
+      <div className='border-box bg-lime-300 border-green-400'><button className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center w-full' onClick={() => setActiveOption('option2')}>Details</button></div>
+      <div className='border-box bg-lime-300 border-green-400'><button className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center w-full' onClick={() => setActiveOption('option3')}> Meta Data</button></div>
+      <div className='border-box bg-lime-300 border-green-400'><button className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center w-full' onClick={() => setActiveOption('option4')}> Review</button></div>
+      <div className='border-box bg-lime-300 border-green-400'><button className='box-decoration-slice bg-gradient-to-r from-emerald-600 to-yellow-500 text-white px-2 text-center w-full' onClick={() => setActiveOption('option5')}> Extra</button></div>
     </div>
 
       <div className="flex flex-col items-center py-10">
       <Dialog/>
       </div>
-
+      <div>
       {activeOption === 'option1' && (
         <div>
           <div className='flex-col h-screen p-4'>
@@ -81,15 +79,7 @@ function UserPage() {
           </div>        
         </div>
       )}
-
-      
-              {activeOption === 'option2' && (
-                      <div>
-                        <div className='flex-col h-screen p-4'>
-                         <MetaOption/>
-                        </div>        
-                      </div>
-                    )}
+        {activeOption === 'option2' && <DetailsOption option="option1" />}
 
 
 
@@ -111,11 +101,21 @@ function UserPage() {
                   </div>
                 )}
 
+{activeOption === 'option5' && (
+                  <div>
+                    <div className='flex-col h-screen p-4'>
+                    This is 5th Yard!
+                    </div>        
+                  </div>
+                )}
+      </div>
+    </FormDataProvider>
+
 
       
 
 
-      <div>
+      <div className='justify-end' style={{  justifyContent: 'flex-end',  position: 'relative', bottom: '0', right: '0', marginRight: '0px', marginTop: '300px' }}>
         <button className='text-white font-bold py-2 px-4 border rounded bg-gradient-to-r from-emerald-300 to-lime-500 hover:from-blue-700 hover:to-pink-500 mr-4 mt-2' onClick={handlePost2}>Post</button>
         <button className='bg-gradient-to-r from-red-300 to-red-900 hover:from-purple-400 hover:to-blue-800 mr-3 text-white font-bold py-2 px-4 border rounded'>Reset</button>
       <h2>Account: {user && user.email}</h2>

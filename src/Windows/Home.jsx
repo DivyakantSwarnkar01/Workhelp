@@ -4,7 +4,7 @@ import { getFirestore, collection, query, getDocs, orderBy, limit, startAfter } 
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import ExtractText from './Home/ExtractText';
 import NaviHome from './Home/naviHome';
-import RGHS from './Home/rghs';
+import LazyRGHS from './Home/lazyrghs';
 import SubHeader from './Home/SubHeader';
 import Pagination from './Home/HomeSub/Pagination';
 import { db } from '../Model/DbCon';
@@ -105,7 +105,7 @@ const Home = () => {
           </div>
         
             <div>
-            <RGHS/>
+            <LazyRGHS/>
             </div>
 
 

@@ -8,7 +8,7 @@ return(
 
 
 <div>
-<div className="bg-zinc-500  text-white h-full w-56 mt-5 ml-3 flex flex-col justify-between">
+<div className="bg-zinc-500  text-white h-full w-56 mt-5 ml-32 flex flex-col justify-between">
       <div className="p-4 bg-lime-500">
         <h2 className="text-xl font-semibold">User Data </h2>
       </div>

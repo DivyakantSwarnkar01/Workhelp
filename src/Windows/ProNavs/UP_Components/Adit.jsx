@@ -1,13 +1,15 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import JoditEditor from 'jodit-react';
 import { usePostStore } from './PostStore.js';
 import eventBus from './ButtonClicked.js';
 import { quillTitle } from "./AdPost.jsx";
 
+
 const Adit = React.memo(({ placeholder }) => {
     const editor = useRef(null);
     const { handleContentChange, postToFirestore, postTitle, postContent } = usePostStore();
     const [previousContent, setPreviousContent] = useState(postContent);
+
 
     useEffect(() => {
         const handleDocumentWritten = (event) => {
@@ -43,10 +45,6 @@ const Adit = React.memo(({ placeholder }) => {
             config={{
                 readonly: false,
                 placeholder: placeholder || 'Start typing...',
-                style: {
-                    maxWidth: "700px",
-                    maxHeight: "500px"
-                }
             }}
             tabIndex={4}
         />
