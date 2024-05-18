@@ -5,7 +5,6 @@ import Jobs from '../Windows/jobs'; // Adjust the import as needed
 import Converter from '../Windows/Converter';
 import EditorX from '../Windows/EditorX';
 import LiveTV from '../Windows/LiveTV';
-import Api from '../Windows/API'
 import LogSign from '../Windows/LogSign/Log_Sign'; // Fixed the import path
 import Protected from '../Windows/ProNavs/Protected'; // Fixed the import path
 import { Route } from 'react-router-dom';
@@ -34,13 +33,11 @@ import Business from '../Windows/Home/naviHome/Business';
 
 const routes = [
   { path: "/", element: Home },
-  { path: "/Home", element: Home},
   { path: "/Downloader", element: Downloader },
   { path: "/jobs", element: Jobs },
   { path: "/Converter", element: Converter },
   { path: "/EditorX", element: EditorX },
   { path: "/LiveTV", element: LiveTV },
-  { path: "/Api", element: Api },
   { path: "/LogSign/Log_Sign", element: LogSign },
   { path: "/ProNavs/Protected", element: Protected },
   { path: "/Home/NewBlogs", element: NewBlogs },

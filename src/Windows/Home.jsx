@@ -8,7 +8,7 @@ import LazyRGHS from './Home/lazyrghs';
 import SubHeader from './Home/SubHeader';
 import Pagination from './Home/HomeSub/Pagination';
 import { db } from '../Model/DbCon';
-
+import Card from '../components/Additionals/Card.jsx'
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -71,6 +71,7 @@ const Home = () => {
   };
 
   return (
+    <div>
     <div className='bg-zinc-200'>
       <div>
         <SubHeader/>
@@ -79,38 +80,46 @@ const Home = () => {
       <div className='w-auto h-auto  mt-3 ml-3 mr-3 border p-4 mb-4 rounded-lg shadow-md'>
         <NaviHome/>
       </div>
-
+      <div className='w-3/5 bg-stone-500 text-white font-bold text-lg ml-5 mt-5 h-auto'> <p className='ml-3'> All News: </p>  </div>
       <div className="flex mb-5">
           <div className="w-3/5 bg-white  ml-5 mt-5">
             {posts.map(post => (
-                <div key={post.id} className="border p-4 mb-4 rounded-lg shadow-md hover:shadow-xl">
+                <div key={post.id} className="p-4 mb-4 rounded-lg shadow-md hover:shadow-xl border-y-teal-500 border-2">
                   <div onClick={() => handlePostClick(post.id)}>
-                    <h2 className="text-xl font-bold mb-2" dangerouslySetInnerHTML={{__html: post.title || 'Untitled'}} />
-                     
-                  </div>
-                  <div>
+                    <h2 className="text-xl font-bold mb-2" dangerouslySetInnerHTML={ {__html: post.title || 'Untitled'}} />
+                </div>
+                 <div>
                     <div dangerouslySetInnerHTML={{__html: `${post.content.slice(0, 200)}...`}} />
                     {/* Additional details or content for the selected post */}
                     {/* Display createdAt date and time as a string */}
+                    <p  className="font-serif font-bold text-slate-400 justify-center" dangerouslySetInnerHTML={{__html: post.WriterName || 'Unknown'}} ></p>
                     <p className="text-sm text-gray-400">
-                      CreatedAt: {new Date(post.createdAt.seconds * 1000).toLocaleString()} {/* Convert to JavaScript Date object and format */}
-                    </p>
+                      Date: {new Date(post.createdAt.seconds * 1000).toLocaleString()}
+                    </p>  
                     {/* Add the Link component here */}
                     <Link to={`/post/${post.id}`} className="text-blue-500">Read more..</Link>
                   </div>
                </div>
             ))}
               {/* Pass props to Pagination component */}
+              <div className='mb-5'>
               <Pagination currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />
+              </div>
           </div>
         
             <div>
             <LazyRGHS/>
             </div>
-
+            
+            
 
         </div>
+    <div>
+      <div className='w-3/5 bg-stone-500 text-white font-semibold text-lg ml-5 mt-5 h-auto'> <p className='ml-3'> Products: </p></div>
+      <Card/>
     </div>
+  </div>
+</div>
   );
 };
 
