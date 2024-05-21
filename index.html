@@ -21,6 +21,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       })(window, document, "clarity", "script", "m2388vlpbp");
   </script>
+  <script>
+    // Function to redirect if screen size is smaller
+    function redirectIfMobile() {
+        // Check if screen width is less than 768 pixels (adjust this value as needed)
+        if (window.innerWidth < 768) {
+            // Redirect to mobile URL
+            window.location.href = "https://m.workhelper.shop/";
+        }
+    }
+
+    // Call the function when the page loads
+    window.onload = redirectIfMobile;
+</script>
   </head>
   <body>
 <!-- Google Tag Manager (noscript) -->

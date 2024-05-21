@@ -77,7 +77,7 @@ const Home = () => {
         <SubHeader/>
       </div>
 
-      <div className='w-auto h-auto  mt-3 ml-3 mr-3 border p-4 mb-4 rounded-lg shadow-md'>
+      <div className='w-auto h-auto  mt-3 ml-3 mr-3 p-4 mb-4 rounded-lg shadow-md border-4 border-indigo-200 border-b-indigo-400'>
         <NaviHome/>
       </div>
       <div className='w-3/5 bg-stone-500 text-white font-bold text-lg ml-5 mt-5 h-auto'> <p className='ml-3'> All News: </p>  </div>

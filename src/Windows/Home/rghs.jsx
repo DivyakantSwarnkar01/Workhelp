@@ -8,7 +8,7 @@ function rghs(){
     return(
      <div className="flex flex-col mt-10 ml-24 mr-10 h-auto w-96">
         <div className="bg-green-600 p-4 mb-4 rounded-md hover:shadow-lg">
-          <h2 className="text-lg font-bold text-green-800 mb-4"> Relevant Posts</h2>
+          <h2 className="text-lg font-bold text-white mb-4"> Relevant Posts</h2>
            <div className="flex bg-slate-300">
               <div className='flex-row hover:bg-green-200'>
                 <p className="font-bold text-pink-600 items-center">Top Rated Posts</p>

@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 function naviHome (){
 
     return(<>
-       <div className='flex '>
-        <div className='text-2xl font-extrabold'>
+       <div className='flex'>
+        <div className='text-2xl font-extrabold '>
             <span className='ml-0 m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                 <Link to={'/Home/World'}>World</Link>
             </span>
