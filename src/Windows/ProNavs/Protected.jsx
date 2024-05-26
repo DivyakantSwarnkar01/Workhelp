@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom';
-import UserPage from './UserPage.jsx';
+import UserPage from './ProRoutes/UserPage.jsx';
 
 
 
@@ -8,7 +8,7 @@ const Protected = () => {
   const token = localStorage.getItem('token');
 
   return (
-    token ? <UserPage /> : <Navigate to='/LogSign/Log_Sign' />
+    token ? <UserPage/> : <Navigate to='/LogSign/Log_Sign' />
   )
 }
 

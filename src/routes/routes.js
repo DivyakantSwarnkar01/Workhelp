@@ -25,6 +25,13 @@ import Economy from '../Windows/Home/naviHome/Economy';
 import Technology from '../Windows/Home/naviHome/Technology';
 import Countries from '../Windows/Home/naviHome/Countries';
 import Business from '../Windows/Home/naviHome/Business';
+import Tables from '../Windows/ProNavs/ProRoutes/Tables';
+import ProductCards from '../Windows/ProNavs/ProRoutes/ProductCards';
+import Projectmanagement from '../Windows/ProNavs/ProRoutes/Projectmanagement';
+import ProductBlogs from '../Windows/ProNavs/ProRoutes/ProductBlogs';
+import Products from '../Windows/ProNavs/ProRoutes/Product';
+import HumanResources from '../Windows/ProNavs/ProRoutes/HumanResources';
+import AddFeatures from '../Windows/ProNavs/ProRoutes/AddFeatures';
 
 
 
@@ -56,7 +63,17 @@ const routes = [
   { path: "/Home/Health", element: Health },
   { path: "/Home/Environment", element: Environment},
   { path: "/Home/Technology", element: Technology},
-  { path: "/Home/Sports", element: Sports}
+  { path: "/Home/Sports", element: Sports},
+  { path : "/ProNavs/Protected", element: Protected},
+  { path : "/ProNavs/ProRoutes/Tables", element: Tables},
+  { path : "/ProNavs/ProRoutes/AddFeatures", element: AddFeatures},
+  { path : "/ProNavs/ProRoutes/HumanResources", element: HumanResources},
+  { path : "/ProNavs/ProRoutes/Product", element: Products},
+  { path : "/ProNavs/ProRoutes/ProductBlogs", element: ProductBlogs},
+  { path : "/ProNavs/ProRoutes/Projectmanagement", element: Projectmanagement},
+  { path : "/ProNavs/ProRoutes/ProductCards", element: ProductCards}
+
+
 ];
 
 export default routes;

@@ -8,7 +8,13 @@ import LazyRGHS from './Home/lazyrghs';
 import SubHeader from './Home/SubHeader';
 import Pagination from './Home/HomeSub/Pagination';
 import { db } from '../Model/DbCon';
-import Card from '../components/Additionals/Card.jsx'
+import ProductsCarousel from '../components/Additionals/ProductsCarousel.jsx'
+import TrendingProducts from './Home/TrendingProducts.jsx'
+import ProductNewsHindi from './Home/ProductNewsHindi.jsx';
+import TrendsTopic from './Home/TrendsTopic.jsx';
+import ProductCateg from './Home/ProductCateg.jsx';
+
+
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -81,7 +87,7 @@ const Home = () => {
         <NaviHome/>
       </div>
       <div className='w-3/5 bg-stone-500 text-white font-bold text-lg ml-5 mt-5 h-auto'> <p className='ml-3'> All News: </p>  </div>
-      <div className="flex mb-5">
+       <div className="flex mb-5">
           <div className="w-3/5 bg-white  ml-5 mt-5">
             {posts.map(post => (
                 <div key={post.id} className="p-4 mb-4 rounded-lg shadow-md hover:shadow-xl border-y-teal-500 border-2">
@@ -109,17 +115,25 @@ const Home = () => {
         
             <div>
             <LazyRGHS/>
+            <TrendingProducts/>
+            <ProductNewsHindi/>
+            <TrendsTopic/>
             </div>
+
             
             
 
         </div>
     <div>
       <div className='w-3/5 bg-stone-500 text-white font-semibold text-lg ml-5 mt-5 h-auto'> <p className='ml-3'> Products: </p></div>
-      <Card/>
+      <ProductsCarousel/>
     </div>
+    <div className='w-3/5 bg-stone-500 text-white font-semibold text-lg ml-5 mt-5 h-auto'> <p className='ml-3'> Products' Category : </p></div>
+      <ProductCateg/>
+    </div>
+
   </div>
-</div>
+
   );
 };
 

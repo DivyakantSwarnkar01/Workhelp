@@ -1,25 +1,29 @@
 import React, { createContext, useContext, useState } from 'react';
-import Dialog from './Dialog';
-import { useNavigate } from 'react-router-dom';
-import { auth } from '../LogSign/fbcon';
+import Dialog from '../Dialog.jsx';
+import { useNavigate, Navigate, Link, BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { auth } from '../../LogSign/fbcon.js';
 import { signOut } from 'firebase/auth';
-import Sdbrlft from './UP_Components/Sdbrlft';
-import Sdbrrgt from './UP_Components/Sdbrrgt';
-import AdPost, { quillTitle } from './UP_Components/AdPost';
-import Adit from './UP_Components/Adit.jsx';
-import eventBus from './UP_Components/ButtonClicked.js';
-import DetailsOption from './UP_Components/DetailsPost.jsx';
-import { FormDataProvider } from './UP_Components/FormDataContext.jsx';
-
-
-
+import Sdbrlft from '../UP_Components/Sdbrlft.jsx';
+import Sdbrrgt from '../UP_Components/Sdbrrgt.jsx';
+import AdPost, { quillTitle } from '../UP_Components/AdPost.jsx';
+import Adit from '../UP_Components/Adit.jsx';
+import eventBus from '../UP_Components/ButtonClicked.js';
+import DetailsOption from '../UP_Components/DetailsPost.jsx';
+import { FormDataProvider } from '../UP_Components/FormDataContext.jsx';
+import Tables from './Tables.jsx';
+import Projectmanagement from './Projectmanagement.jsx';
+import ProductCards from './ProductCards.jsx';
+import ProductBlogs from "./ProductBlogs.jsx";
+import Products from "./Product.jsx";
+import HumanResources from "./HumanResources.jsx";
+import AddFeatures from "./AddFeatures.jsx"
 
 
 function UserPage() {
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
   const [activeOption, setActiveOption] = useState('option1');
-
+  const token = localStorage.getItem('token');
 
   const handleLogout = async () => {
     try {
@@ -40,18 +44,30 @@ function UserPage() {
 
   return (
 <div className='flex flex-col'>
-      <div className='flex bg-lime-500 w-4/4 item-centre h-10 mt-5 mb-10 ml-5 mr-5'>
-      <ul className='flex flex-row absolute align-left'>
-        <li className='text-white ml-3 mr-3 mt-2'>General</li>
-        <li className='text-white ml-3 mr-3 mt-2'>Tables</li>
-        <li className='text-white ml-3 mr-3 mt-2'>H.C.M. </li>
-        <li className='text-white ml-3 mr-3 mt-2'>C.R.M. </li>
-        <li className='text-white ml-3 mr-3 mt-2'>C.P.C.</li>
-        <li className='text-white ml-3 mr-3 mt-2'>Project Management</li>
-        <li className='text-white ml-3 mr-3 mt-2'>Advertising</li>
-        <li className='text-white ml-3 mr-3 mt-2'>Add Features</li>
-      </ul>
-     </div>
+<div className='flex bg-lime-500 w-full items-center h-10 mt-5 mb-10 ml-5 mr-5'>
+        <div className='flex flex-row'>
+          
+          <Link className='text-white ml-3 mr-3  flex items-center' to="/ProNavs/Protected">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6 mr-1">
+              <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+              <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+            </svg>
+          </Link>
+          <Link className='text-white ml-3 mr-3  flex items-center' to="/ProNavs/ProRoutes/Tables">Tables</Link>
+          <Link className='text-white ml-3 mr-3  flex items-center' to="/ProNavs/ProRoutes/ProductCards">Product-Cards</Link>
+          <Link className='text-white ml-3 mr-3  flex items-center' to="/ProNavs/ProRoutes/ProductBlogs">Product-Blogs</Link>
+          <Link className='text-white ml-3 mr-3  flex items-center' to="/ProNavs/Products">Products</Link>
+          <Link className='text-white ml-3 mr-3  flex items-center' to="/ProNavs/ProRoutes/Projectmanagement">Project-management</Link>
+          <Link className='text-white ml-3 mr-3  flex items-center' to="/ProNavs/ProRoutes/HumanResources">Human Resource</Link>
+          <Link className='text-white ml-3 mr-3  flex items-center' to="/ProNavs/ProRoutes/AddFeatures">
+            Add Features
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6 ml-1">
+              <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
+            </svg>
+          </Link>
+            
+        </div>
+      </div>
   <div className="flex mb-40">
       <div className="w-1/4 h-screen p-4 border-r border-gray-200 mt-5 ml-3">
       <Sdbrlft/>

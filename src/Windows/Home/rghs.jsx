@@ -24,7 +24,7 @@ function rghs(){
 
 
         <div className="bg-green-600 p-4 mt-32 rounded-md hover:shadow-lg">
-          <h2 className="text-lg font-bold text-green-800 mb-4">Advertisement and Notice Board: </h2>
+          <h2 className="text-lg text-white font-bold text-green-800 mb-4">Advertisement and Notice Board: </h2>
             <div className='bg-green-200'>
             <a href="https://amzn.to/3JogpKL" target="_blank" rel="noopener noreferrer">Product Link</a>
             </div>
