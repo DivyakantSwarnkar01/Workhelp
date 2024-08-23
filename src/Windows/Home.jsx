@@ -13,8 +13,7 @@ import TrendingProducts from './Home/TrendingProducts.jsx'
 import ProductNewsHindi from './Home/ProductNewsHindi.jsx';
 import TrendsTopic from './Home/TrendsTopic.jsx';
 import ProductCateg from './Home/ProductCateg.jsx';
-
-
+import { HelmetProvider } from "react-helmet-async";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -77,7 +76,17 @@ const Home = () => {
   };
 
   return (
+
     <div>
+           <div>    <HelmetProvider>
+            <link rel="canonical" href={`https://www.workhelper.shop/`}/>
+            <title> Hello ! Welcome to Workhelper General Purpose utility workplace!!!</title>
+            <meta name="description" content="This is General purpose website meant to serve the people add free Products Free of Cost" />
+            
+            </HelmetProvider>
+             </div>
+    
+
     <div className='bg-zinc-200'>
       <div>
         <SubHeader/>

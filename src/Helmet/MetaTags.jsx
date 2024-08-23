@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 function MetaTags({ Title, description, imageUrl, headTitle, descriptionContent }) {
     return (
