@@ -8,10 +8,10 @@ import MetaTags from '../../Helmet/MetaTags';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { htmlToText } from 'html-to-text';
 import './PostDetails.css';
-
+import Logo from '../../assets/logo.png'
 
 const Postdetails = () => {
-  const { postId } = useParams(); // Use "postId" instead of "id"
+  const { postId } = useParams(); 
   const [post, setPost] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -21,8 +21,14 @@ const Postdetails = () => {
         const postDoc = doc(firebase.firestore, 'Blogs_Contents', postId);
         const docSnap = await getDoc(postDoc);
         if (docSnap.exists()) {
-          setPost({ id: docSnap.id, title: docSnap.data().title, content: docSnap.data().content,
-            createdAt: docSnap.data().createdAt });
+          setPost({ 
+            id: docSnap.id, 
+            title: docSnap.data().title, 
+            content: docSnap.data().content,
+            createdAt: docSnap.data().createdAt,
+            thumbnail: docSnap.data().thumbnail,
+            WriterName: docSnap.data().WriterName // Fetch the author's name
+          });
         } else {
           console.log('No such document!');
         }
@@ -39,72 +45,101 @@ const Postdetails = () => {
     } else {
       document.body.classList.remove('dark');
     }
-  }, [postId, isDarkMode]); // Include "postId" and "isDarkMode" in the dependency array
-  // Make sure to include "postId" in the dependency array
+  }, [postId, isDarkMode]);
 
   if (!post) return null;
 
+  // Extract text content of post.title
+  const quillHtmlContent = post.title;
+  const quillTitle = htmlToText(quillHtmlContent);
 
-    // Extract text content of post.title
-    const quillHtmlContent = post.title;
-    const quillTitle = htmlToText(quillHtmlContent);
+  // Extracting content from Jodit editor 
+  const htmlContent = post.content;
 
-    //extracting Content from Jodit editor 
-    const htmlContent = post.content;
+  // Extract text content from HTML
+  const textContent = htmlToText(htmlContent);
 
-     // Extract text content from HTML
-     const textContent = htmlToText(htmlContent);
+  // Slice the text content to just 50 words
+  const slicedContent = textContent.split(' ').slice(0, 50).join(' ');
 
-     // Slice the text content to just 10 words
-     const slicedContent = textContent.split(' ').slice(0, 50).join(' ');
-    
-  // Render the QuillJS content
-  return (<HelmetProvider>
+  // JSON-LD Schema
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": quillTitle,
+    "description": slicedContent,
+    "datePublished": post.createdAt.toDate().toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": post.WriterName || "Author Name" // Use author's name from the database or a fallback
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Workhelper News",
+      "logo": {
+        "@type": "ImageObject",
+        "url": {Logo} // Replace with your logo URL
+      }
+    },
+    "image": post.thumbnail || "https://www.example.com/default-thumbnail-url.jpg", // Replace with a default image if thumbnail is missing
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://www.workhelper.shop/post/${postId}`
+    }
+  };
 
-<div className="flex justify-center items-center min-h-screen bg-gray-200 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
-  <h1 className="sr-only">{quillTitle}</h1>
-      <MetaTags Title={quillTitle}
-              description={slicedContent}
-              imageUrl={post.thumbnail}
-              headTitle={quillTitle}
-              descriptionContent={slicedContent}
-              />
-              <Helmet>
-              <link rel="canonical" href={`https://www.workhelper.shop/post/${postId}`}/>
-              </Helmet>
+  return (
+    <HelmetProvider>
+      <div className="flex justify-center items-center min-h-screen bg-gray-200 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+        <Helmet>
+          <title>{quillTitle}</title>
+          <meta name="description" content={slicedContent} />
+          <meta property="og:title" content={quillTitle} />
+          <meta property="og:description" content={slicedContent} />
+          <meta property="og:image" content={post.thumbnail || 'default-thumbnail-url.jpg'} />
+          <meta property="og:url" content={`https://www.workhelper.shop/post/${postId}`} />
+          <link rel="canonical" href={`https://www.workhelper.shop/post/${postId}`} />
+          <script type="application/ld+json">
+            {JSON.stringify(schemaData)}
+          </script>
+        </Helmet>
         
+        <MetaTags 
+          Title={quillTitle}
+          description={slicedContent}
+          imageUrl={post.thumbnail}
+          headTitle={quillTitle}
+          descriptionContent={slicedContent}
+        />
 
-
-
-    <div className="w-full max-w-lg p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-10 mt-10 mb-10">
-      <div className="flex justify-between items-center mb-4">
-        <label htmlFor="toggle" className="flex items-center cursor-pointer">
-          <div className="relative">
-            <input
-              id="toggle"
-              type="checkbox"
-              className="hidden"
-              onChange={() => setIsDarkMode(!isDarkMode)}
-              checked={isDarkMode}
-            />
-            <div className="toggle__line w-10 h-4 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner"></div>
-            <div className={`toggle__dot absolute w-6 h-6 bg-white dark:bg-gray-800 border-2 border-pink-500 dark:border-violet-500 rounded-full shadow top-0 -left-1 transition-transform duration-300 ease-in-out transform ${isDarkMode ? 'translate-x-6' : ''}`}></div>
+        <div className="w-full max-w-lg p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-10 mt-10 mb-10">
+          <div className="flex justify-between items-center mb-4">
+            <label htmlFor="toggle" className="flex items-center cursor-pointer">
+              <div className="relative">
+                <input
+                  id="toggle"
+                  type="checkbox"
+                  className="hidden"
+                  onChange={() => setIsDarkMode(!isDarkMode)}
+                  checked={isDarkMode}
+                />
+                <div className="toggle__line w-10 h-4 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner"></div>
+                <div className={`toggle__dot absolute w-6 h-6 bg-white dark:bg-gray-800 border-2 border-pink-500 dark:border-violet-500 rounded-full shadow top-0 -left-1 transition-transform duration-300 ease-in-out transform ${isDarkMode ? 'translate-x-6' : ''}`}></div>
+              </div>
+            </label>
           </div>
-        </label>
-      </div>
 
-      <div className="text-gray-800 dark:text-gray-200">
-       {/* Display createdAt date and time as a string */}
-       <p className="text-sm text-blue-400">
+          <div className="text-gray-800 dark:text-gray-200">
+            <p className="text-sm text-blue-400">
               {post.createdAt.toDate().toLocaleString()} {/* Convert to JavaScript Date object and format */}
             </p>
-        <h1 className="text-3xl font-bold mb-4" dangerouslySetInnerHTML={{__html: post.title}}/>
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            <h1 className="text-3xl font-bold mb-4" dangerouslySetInnerHTML={{__html: post.title}} />
+            <div dangerouslySetInnerHTML={{ __html: post.content }} />
+          </div>
+          {post && <Social url={window.location.href} title={post.title} />}
+        </div>
       </div>
-      {post && <Social url={window.location.href} title={post.title} />}
-    </div>
-</div>
-</HelmetProvider>
+    </HelmetProvider>
   );
 };
 
