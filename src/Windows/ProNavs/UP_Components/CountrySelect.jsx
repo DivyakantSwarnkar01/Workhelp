@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
 import 'flag-icons/css/flag-icons.min.css';
-import FormDataContext from './FormDataContext';
 
 const CountrySelect = ({ formData, option, handleChange }) => {
   const options = countryList().getData();
@@ -45,7 +44,7 @@ const CountrySelect = ({ formData, option, handleChange }) => {
         styles={customStyles}
         formatOptionLabel={formatOptionLabel}
         value={options.find(c => c.value === formData[option].country)}
-        onChange={(selectedOption) => handleChange({ target: { name: 'country', value: selectedOption.value } })}
+        onChange={(selectedOption) => handleChange(selectedOption)}
       />
     </div>
   );

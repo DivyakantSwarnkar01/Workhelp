@@ -23,14 +23,8 @@ function DetailsOption({ option }) {
 
 
 
-  const handleCountryChange = (e) => {
-    setFormDataC({
-      ...formDataC,
-      option: {
-        ...formDataC.option,
-        [e.target.name]: e.target.value
-      }
-    });
+  const handleCountryChange = (selectedOption) => {
+    updateFormData(option, { country: selectedOption.value });
   };
 
   return (
@@ -51,7 +45,7 @@ function DetailsOption({ option }) {
         </div>
         
         <div className="mb-4">
-          <CountrySelect formData={formDataC} option="option" handleChange={handleCountryChange} />
+          <CountrySelect formData={formData} option={option} handleChange={handleCountryChange} />
         </div>
 
         <div className="mb-4">
