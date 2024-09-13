@@ -1,5 +1,7 @@
 import React from "react";
 import { db } from "../../Model/DbCon";
+import RealDB from "./realtime-feeder/RealDB"
+
 
 const ProductNewsHindi = () =>{
 
@@ -11,8 +13,9 @@ const ProductNewsHindi = () =>{
                <p className="text-white font-semibold text-lg mt-2 ">Product News in Hindi:</p>
             </div>
             <div className="bg-green-500 text-slate-700 m-5 p-5">
-
-             There will be Hindi News and Topics
+              
+              <RealDB/>
+             
             </div>
     
         

@@ -1,6 +1,8 @@
 import React from "react";
 import Metero from '../../assets/Metero.svg';
 import { db } from "../../Model/DbCon";
+import RealDB from "./realtime-feeder/RealDB"
+
 
 const TrendingProducts = () =>{
 
@@ -12,8 +14,8 @@ const TrendingProducts = () =>{
                <p className="text-white font-semibold text-lg mt-2">Trending Products:</p>
             </div>
             <div className="bg-green-500 text-slate-700 m-5 p-5">
-
-             Hello Trending Products
+             <RealDB/>
+             
             </div>
     
         

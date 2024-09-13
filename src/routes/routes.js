@@ -32,7 +32,7 @@ import ProductBlogs from '../Windows/ProNavs/ProRoutes/ProductBlogs';
 import Products from '../Windows/ProNavs/ProRoutes/Product';
 import HumanResources from '../Windows/ProNavs/ProRoutes/HumanResources';
 import AddFeatures from '../Windows/ProNavs/ProRoutes/AddFeatures';
-
+import NotFound from '../Windows/NotFound'; 
 
 
 
@@ -47,23 +47,23 @@ const routes = [
   { path: "/LiveTV", element: LiveTV },
   { path: "/LogSign/Log_Sign", element: LogSign },
   { path: "/ProNavs/Protected", element: Protected },
-  { path: "/Home/NewBlogs", element: NewBlogs },
-  { path: "/Home/Quaries?", element: Quaries },
-  { path: "/Home/Recent", element: Recent },
-  { path: "/Home/Search", element:Search },
+  { path: "/NewBlogs", element: NewBlogs },
+  { path: "/Quaries?", element: Quaries },
+  { path: "/Recent", element: Recent },
+  { path: "/Search", element:Search },
   { path: "/post/:postId", element: Postdetails},
-  { path: "/Home/World", element: World},
-  { path: "/Home/India", element: India},
-  { path: "/Home/Polity", element: Polity},
-  { path: "/Home/Business", element: Business},
-  { path: "/Home/Economy", element: Economy},
-  { path: "/Home/Countries", element: Countries},
-  { path: "/Home/Science", element: Science},
-  { path: "/Home/Society", element: Society},
-  { path: "/Home/Health", element: Health },
-  { path: "/Home/Environment", element: Environment},
-  { path: "/Home/Technology", element: Technology},
-  { path: "/Home/Sports", element: Sports},
+  { path: "/World", element: World},
+  { path: "/India", element: India},
+  { path: "/Polity", element: Polity},
+  { path: "/Business", element: Business},
+  { path: "/Economy", element: Economy},
+  { path: "/Countries", element: Countries},
+  { path: "/Science", element: Science},
+  { path: "/Society", element: Society},
+  { path: "/Health", element: Health },
+  { path: "/Environment", element: Environment},
+  { path: "/Technology", element: Technology},
+  { path: "/Sports", element: Sports},
   { path : "/ProNavs/Protected", element: Protected},
   { path : "/ProNavs/ProRoutes/Tables", element: Tables},
   { path : "/ProNavs/ProRoutes/AddFeatures", element: AddFeatures},
@@ -71,8 +71,10 @@ const routes = [
   { path : "/ProNavs/ProRoutes/Product", element: Products},
   { path : "/ProNavs/ProRoutes/ProductBlogs", element: ProductBlogs},
   { path : "/ProNavs/ProRoutes/Projectmanagement", element: Projectmanagement},
-  { path : "/ProNavs/ProRoutes/ProductCards", element: ProductCards}
+  { path : "/ProNavs/ProRoutes/ProductCards", element: ProductCards},
 
+    // Catch-all route for 404 page
+    { path: "*", element: NotFound }
 
 ];
 

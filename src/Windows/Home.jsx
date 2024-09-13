@@ -14,7 +14,6 @@ import ProductNewsHindi from './Home/ProductNewsHindi.jsx';
 import TrendsTopic from './Home/TrendsTopic.jsx';
 import ProductCateg from './Home/ProductCateg.jsx';
 import { HelmetProvider } from "react-helmet-async";
-import RealDB from './Home/realtime-feeder/RealDB.jsx'
 
 
 
@@ -146,7 +145,7 @@ const Home = () => {
 
 
    <div>
-    <RealDB/>
+    
    </div>
   </div>
 
