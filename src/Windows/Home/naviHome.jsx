@@ -9,40 +9,40 @@ function naviHome (){
        <div className='flex'>
         <div className='text-2xl font-extrabold '>
             <span className='ml-0 m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
-                <Link to={'/Home/World'}>World</Link>
+                <Link to={'/World'}>World</Link>
             </span>
             <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
-                <Link to={'/Home/India'}>India</Link>
+                <Link to={'/India'}>India</Link>
             </span>
             <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
-                <Link to={'/Home/Polity'}>Polity</Link>
+                <Link to={'/Polity'}>Polity</Link>
             </span>
             <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
-                <Link to={'/Home/Economy'}>Economy</Link>
+                <Link to={'/Economy'}>Economy</Link>
             </span>
             <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
-                <Link to={'/Home/Countries'}>Countries</Link>
+                <Link to={'/Countries'}>Countries</Link>
             </span>
             <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
-                <Link to={'/Home/Environment'}>Environment</Link>
+                <Link to={'/Environment'}>Environment</Link>
             </span>
             <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
-                <Link to={'/Home/Society'}>Society</Link>
+                <Link to={'/Society'}>Society</Link>
             </span>
             <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
-                <Link to={'/Home/Business'}>Business</Link>
+                <Link to={'/Business'}>Business</Link>
             </span>
             <span className='m-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
-                <Link to={'/Home/Science'}>Science</Link>
+                <Link to={'/Science'}>Science</Link>
             </span>
             <span className='ml-2 m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
-                <Link to={'/Home/Sports'}>Sports</Link>
+                <Link to={'/Sports'}>Sports</Link>
             </span>
             <span className='ml-2 m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
-                <Link to={'/Home/Health'}>Health</Link>
+                <Link to={'/Health'}>Health</Link>
             </span>
             <span className='ml-1 m-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
-                <Link to={'/Home/Technology'}>Technology</Link>
+                <Link to={'/Technology'}>Technology</Link>
             </span>
         </div>
 

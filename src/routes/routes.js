@@ -1,17 +1,10 @@
 import React from 'react';
 import Home from '../Windows/Home';
-import Downloader from '../Windows/Downloader';
-import Jobs from '../Windows/jobs'; // Adjust the import as needed
+import Downloader from '../Windows/Downloader'; // Adjust the import as needed
 import Converter from '../Windows/Converter';
-import EditorX from '../Windows/EditorX';
 import LiveTV from '../Windows/LiveTV';
 import LogSign from '../Windows/LogSign/Log_Sign'; // Fixed the import path
 import Protected from '../Windows/ProNavs/Protected'; // Fixed the import path
-import { Route } from 'react-router-dom';
-import NewBlogs from '../Windows/Home/HomeSub/NewBlogs';
-import Quaries from '../Windows/Home/HomeSub/Quaries';
-import Recent from '../Windows/Home/HomeSub/Recent';
-import Search from '../Windows/Home/HomeSub/Search';
 import Postdetails from '../Windows/Home/Postdetails';
 import World from '../Windows/Home/naviHome/World';
 import India from '../Windows/Home/naviHome/India';
@@ -41,16 +34,10 @@ import NotFound from '../Windows/NotFound';
 const routes = [
   { path: "/", element: Home },
   { path: "/Downloader", element: Downloader },
-  { path: "/jobs", element: Jobs },
   { path: "/Converter", element: Converter },
-  { path: "/EditorX", element: EditorX },
   { path: "/LiveTV", element: LiveTV },
   { path: "/LogSign/Log_Sign", element: LogSign },
   { path: "/ProNavs/Protected", element: Protected },
-  { path: "/NewBlogs", element: NewBlogs },
-  { path: "/Quaries?", element: Quaries },
-  { path: "/Recent", element: Recent },
-  { path: "/Search", element:Search },
   { path: "/post/:postId", element: Postdetails},
   { path: "/World", element: World},
   { path: "/India", element: India},

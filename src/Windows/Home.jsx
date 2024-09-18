@@ -89,7 +89,7 @@ const Home = () => {
              </div>
     
 
-    <div className='bg-zinc-200'>
+    <div className='bg-white'>
       <div>
         <SubHeader/>
       </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { db } from "../../Model/DbCon";
+import RealDB from "./realtime-feeder/RealDB"
 
 const TrendsTopic = () =>{
 
@@ -15,7 +16,7 @@ const TrendsTopic = () =>{
             </div>
             <div className="bg-green-500 text-slate-700 m-5 p-5">
 
-             There will be Top trending Topics
+             <RealDB/>
             </div>
     
         

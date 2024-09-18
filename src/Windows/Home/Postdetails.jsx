@@ -1,6 +1,6 @@
 // Postdetails.jsx
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import firebase from '../LogSign/fbcon';
 import Social from './Social';
@@ -14,6 +14,7 @@ const Postdetails = () => {
   const { postId } = useParams(); 
   const [post, setPost] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -31,9 +32,11 @@ const Postdetails = () => {
           });
         } else {
           console.log('No such document!');
+          navigate('/NotFound');
         }
       } catch (error) {
         console.error('Error fetching post:', error);
+        navigate('/NotFound');
       }
     };
   

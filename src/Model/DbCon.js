@@ -1,5 +1,5 @@
 // DbCon.js
-
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getDatabase } from 'firebase/database';  // For Realtime Database

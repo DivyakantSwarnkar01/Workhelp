@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { fetchVideo } from './apService.js'; // assuming you have an apiService file as mentioned before
+import { fetchVideo } from './apService.js'; // assuming you have an apiService file
 import Gload from '../../assets/GLoading.gif';
 import '../Home/PostDetails.css';
 
 function extractVideoId(url) {
-  // Match the video ID pattern in the YouTube URL
   const match = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-
-  // If a match is found, return the video ID, otherwise return null
   return match ? match[1] : null;
 }
 
@@ -34,63 +31,75 @@ const VideoSearchComponent = () => {
     } finally {
       setIsLoading(false);
     }
-  }; 
+  };
 
   const handleDownload = async () => {
-    if (!videoData) {
+    if (!videoData || !videoData.streamingData || !videoData.streamingData.formats || videoData.streamingData.formats.length === 0) {
       return;
     }
 
     try {
-      // Get the video stream data from the first format
       const videoStream = await fetch(videoData.streamingData.formats[0].url);
       const videoBlob = await videoStream.blob();
 
-      // Create a blob URL for the video
       const url = URL.createObjectURL(videoBlob);
-
-      // Create a temporary anchor element
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'video.mp4'; // Set the filename for the download
+      a.download = 'video.mp4'; // Set filename
       a.click();
 
-      // Clean up
       URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error downloading video:', error);
     }
   };
 
-
   return (
-    <div className='Flex border-solid border-4 border-lime-500 rounded-md  w-52 h-52 ml-96 mt-5 items-center'>
-      <h1 className='sr-only'> Download Video from Youtube and Multiple other Websites.</h1>
-      <form className='Flex-col bg-lime-300 mt-5 ' onSubmit={handleSubmit}>
+    <div className="flex flex-col items-center p-6 bg-white shadow-md rounded-md w-full max-w-lg mx-auto mt-10">
+      <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+        Download Videos from YouTube and More
+      </h1>
+      <form className="flex flex-col w-full" onSubmit={handleSubmit}>
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Enter video Link here!"
-          className='m-3 '
+          placeholder="Enter YouTube video link"
+          className="p-3 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
-        <button type="submit" className='Flex-col border-4 border-amber-500 bg-rose-600 ml-20 mt-10'>Search</button>
+        <button
+          type="submit"
+          className="bg-indigo-600 text-white font-bold py-2 rounded-md hover:bg-indigo-700 transition duration-300"
+        >
+          Search
+        </button>
       </form>
 
-      {isLoading && <div> <img src={Gload}/>"Loading..."</div>}
-      {error && <p>{error}</p>}
-      
-      {videoData && (
-        <div className='Grid gap-4 grid-cols-3'>
-          
-            <h2 className='bg-green-600 font-bold text-white'>{videoData.videoDetails.title}</h2>
-            <p className='bg-green-600 font-bold text-white'>{videoData.videoDetails.description}</p>
-            <video controls>
+      {isLoading && (
+        <div className="flex items-center justify-center mt-6">
+          <img src={Gload} alt="Loading" className="w-16 h-16" />
+        </div>
+      )}
+      {error && <p className="text-red-500 mt-4">{error}</p>}
+
+      {videoData && videoData.streamingData && videoData.streamingData.formats && videoData.streamingData.formats.length > 0 && (
+        <div className="mt-8 w-full">
+          <h2 className="text-lg font-bold mb-2 text-gray-800">
+            {videoData.videoDetails.title}
+          </h2>
+          <p className="text-gray-600 mb-4">{videoData.videoDetails.description}</p>
+          <div className="w-full mb-4">
+            <video controls className="w-full rounded-md">
               <source src={videoData.streamingData.formats[0].url} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-          
-          <button className='bg-green-600 font-bold text-white mt-0' onClick={handleDownload}> Click on More Option than Download to download Video</button>
+          </div>
+          <button
+            className="bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700 transition duration-300"
+            onClick={handleDownload}
+          >
+            Download Video
+          </button>
         </div>
       )}
     </div>

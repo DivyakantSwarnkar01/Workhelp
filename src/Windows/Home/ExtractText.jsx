@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
+import { collection, query, orderBy, getDocs, limit } from 'firebase/firestore';
 import { db } from './../../Model/DbCon.js';
-import { htmlToText } from 'html-to-text'; // Import htmlToText function from 'html-to-text';
+import { htmlToText } from 'html-to-text';
 
 const ExtractText = () => {
   const [posts, setPosts] = useState([]);
@@ -9,19 +9,31 @@ const ExtractText = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const q = query(collection(db, 'Blogs_Contents'), orderBy('createdAt'), limit(5));
+        // Fetch documents and order by createdAt
+        const q = query(collection(db, 'Blogs_Contents'), orderBy('createdAt'), limit(20));
         const querySnapshot = await getDocs(q);
 
+        // Map the documents and remove <img> tags from title
         const fetchedPosts = querySnapshot.docs.map(doc => {
           const postData = doc.data();
-          const titleText = postData.title ? htmlToText(postData.title) : 'Untitled';
+          let titleHtml = postData.title || '';
+
+          // Remove any <img> tags using regex
+          titleHtml = titleHtml.replace(/<img[^>]*>/g, ''); 
+
+          // Convert cleaned HTML to plain text
+          const titleText = htmlToText(titleHtml);
+
           return {
             id: doc.id,
             title: titleText,
             createdAt: postData.createdAt ? postData.createdAt.toDate().toLocaleString() : 'Unknown',
           };
         });
-        setPosts(fetchedPosts);
+
+        // Randomly select 5 posts
+        const randomPosts = fetchedPosts.sort(() => 0.5 - Math.random()).slice(0, 5);
+        setPosts(randomPosts);
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
@@ -31,11 +43,11 @@ const ExtractText = () => {
   }, []);
 
   return (
-    <div>
+    <div className="w-full">
       {posts.map(post => (
-        <div className='m-3 bg-slate-400 hover:z-20' key={post.id}>
-          <h2 className= ' text-slate-100 text-sm'> {post.title}</h2>
-          <p className='text-sm'> {post.createdAt}</p>
+        <div className='m-2 bg-slate-200 p-3 rounded-lg hover:bg-green-100 hover:shadow-md' key={post.id}>
+          <h2 className='text-md font-semibold text-slate-700'>{post.title}</h2>
+          <p className='text-sm text-gray-600'>Posted on: {post.createdAt}</p>
         </div>
       ))}
     </div>
