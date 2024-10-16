@@ -26,7 +26,7 @@ import Products from '../Windows/ProNavs/ProRoutes/Product';
 import HumanResources from '../Windows/ProNavs/ProRoutes/HumanResources';
 import AddFeatures from '../Windows/ProNavs/ProRoutes/AddFeatures';
 import NotFound from '../Windows/NotFound'; 
-
+import Search from '../Windows/Home/HomeSub/Search';
 
 
 
@@ -59,7 +59,8 @@ const routes = [
   { path : "/ProNavs/ProRoutes/ProductBlogs", element: ProductBlogs},
   { path : "/ProNavs/ProRoutes/Projectmanagement", element: Projectmanagement},
   { path : "/ProNavs/ProRoutes/ProductCards", element: ProductCards},
-
+  { path : "/Search", element: Search},
+  
     // Catch-all route for 404 page
     { path: "*", element: NotFound }
 

@@ -1,42 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-
-
-function Sdbrlft(){
-
-return(
-
-
-<div>
-<div className="bg-gray-800 text-white h-full w-56 flex flex-col justify-between">
-      <div className="p-4 bg-lime-500">
-        <h2 className="text-xl font-semibold">Admin Activity</h2>
-      </div>
-      <div className="flex flex-col space-y-2 p-4">
-        <a href="#" className="text-white hover:bg-gray-700 px-4 py-2 rounded">Free Post</a>
-        <a href="#" className="text-white hover:bg-gray-700 px-4 py-2 rounded">Paid Writing</a>
-        <a href="#" className="text-white hover:bg-gray-700 px-4 py-2 rounded">Draft Research</a>
-        <a href="#" className="text-white hover:bg-gray-700 px-4 py-2 rounded">Get a Domain!</a>
-        <a href="#" className="text-white hover:bg-gray-700 px-4 py-2 rounded">Message</a>
-        <a href="#" className="text-white hover:bg-gray-700 px-4 py-2 rounded">Advertising</a>
-        <a href="#" className="text-white hover:bg-gray-700 px-4 py-2 rounded">Application</a>
-        <a href="#" className="text-white hover:bg-gray-700 px-4 py-2 rounded">Cloud Services</a>
-        {/* Add more options as needed */}
-      </div>
+function Sdbrlft() {
+  return (
+    <div className="bg-white h-full shadow-md p-4">
+      <h2 className="text-lg font-semibold text-gray-800 mb-4">Navigation</h2>
+      <ul className="space-y-2">
+        {['Dashboard', 'Posts', 'Analytics', 'Settings', 'Support'].map((item) => (
+          <li key={item}>
+            <Link
+              to={`/ProNavs/${item.replace(/\s/g, '')}`}
+              className="block text-gray-700 hover:bg-lime-200 hover:text-lime-800 px-3 py-2 rounded transition duration-200"
+            >
+              {item}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
-    
-</div>
-
-
-
-
-
-
-)
-
-
-
-
+  );
 }
 
 export default Sdbrlft;

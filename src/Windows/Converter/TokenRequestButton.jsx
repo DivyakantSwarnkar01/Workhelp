@@ -1,11 +1,11 @@
 import React from 'react';
 
-const TokenRequestButton = ({ downloadUrl }) => {
+const TokenRequestButton = ({ downloadUrl,  fileExtension }) => {
   return (
     <div className="mt-4">
       <a
         href={downloadUrl}
-        download="converted_file.pdf"
+        download={`Converted_file.${fileExtension}`}
         className="flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-700 text-white py-2 px-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-indigo-500"
       >
         <DownloadIcon className="w-6 h-6 mr-2" />

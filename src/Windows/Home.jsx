@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, query, getDocs, orderBy, limit, startAfter } from 'firebase/firestore';
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import { collection, query, getDocs, orderBy, limit, startAfter } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 import ExtractText from './Home/ExtractText';
 import NaviHome from './Home/naviHome';
-import LazyRGHS from './Home/lazyrghs';
+import LazyRGHS from './Home/lazyrghs.jsx';
 import SubHeader from './Home/SubHeader';
 import Pagination from './Home/HomeSub/Pagination';
 import { db } from '../Model/DbCon';
-import ProductsCarousel from '../components/Additionals/ProductsCarousel.jsx'
-import TrendingProducts from './Home/TrendingProducts.jsx'
+import ProductsCarousel from '../components/Additionals/ProductsCarousel.jsx';
+import TrendingProducts from './Home/TrendingProducts.jsx';
 import ProductNewsHindi from './Home/ProductNewsHindi.jsx';
 import TrendsTopic from './Home/TrendsTopic.jsx';
 import ProductCateg from './Home/ProductCateg.jsx';
 import { HelmetProvider } from "react-helmet-async";
-
-
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
+  const [loading, setLoading] = useState(true); // State to manage loading
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -37,8 +35,10 @@ const Home = () => {
         const totalPosts = totalPostsSnapshot.size;
         const totalPages = Math.ceil(totalPosts / postsPerPage);
         setTotalPages(totalPages);
+        setLoading(false);
       } catch (error) {
         console.error("Error getting documents:", error);
+        setLoading(false);
       }
     };
 
@@ -47,14 +47,11 @@ const Home = () => {
 
   const handlePageChange = async (page) => {
     try {
+      setLoading(true);
       let q;
       const postsCollection = collection(db, 'Blogs_Contents');
       if (page === 1) {
-        q = query(
-          postsCollection,
-          orderBy("createdAt", "desc"),
-          limit(postsPerPage)
-        );
+        q = query(postsCollection, orderBy("createdAt", "desc"), limit(postsPerPage));
       } else {
         q = query(
           postsCollection,
@@ -67,88 +64,107 @@ const Home = () => {
       const postData = postsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setPosts(postData);
       setCurrentPage(page);
+      setLoading(false);
     } catch (error) {
       console.error("Error getting documents:", error);
+      setLoading(false);
     }
   };
-  
-  
+
   const handlePostClick = (postId) => {
-    // Handle post click logic here
+    // Handle post click logic here, e.g., navigation or modal
   };
 
   return (
-
-    <div>
-           <div>    <HelmetProvider>
-            <link rel="canonical" href={`https://www.workhelper.shop/`}/>
-            <title> Hello ! Welcome to Workhelper General Purpose utility workplace!!!</title>
-            <meta name="description" content="This is General purpose website meant to serve the people add free Products Free of Cost" />
-            
-            </HelmetProvider>
-             </div>
-    
-
-    <div className='bg-white'>
+    <HelmetProvider>
       <div>
-        <SubHeader/>
-      </div>
+        <link rel="canonical" href="https://www.workhelper.shop/" />
+        <title>Welcome to Workhelper! A General Purpose Utility Website</title>
+        <meta name="description" content="A general-purpose website providing free services and ad-free products." />
 
-      <div className='w-auto h-auto  mt-3 ml-3 mr-3 p-4 mb-4 rounded-lg shadow-md border-4 border-indigo-200 border-b-indigo-400'>
-        <NaviHome/>
-      </div>
-      <div className='w-3/5 bg-stone-500 text-white font-bold text-lg ml-5 mt-5 h-auto'> <p className='ml-3'> All News: </p>  </div>
-       <div className="flex mb-5">
-          <div className="w-3/5 bg-white  ml-5 mt-5">
-            {posts.map(post => (
-                <div key={post.id} className="p-4 mb-4 rounded-lg shadow-md hover:shadow-xl border-y-teal-500 border-2">
-                  <div onClick={() => handlePostClick(post.id)}>
-                    <h2 className="text-xl font-bold mb-2" dangerouslySetInnerHTML={ {__html: post.title || 'Untitled'}} />
-                </div>
-                 <div>
-                    <div dangerouslySetInnerHTML={{__html: `${post.content.slice(0, 200)}...`}} />
-                    {/* Additional details or content for the selected post */}
-                    {/* Display createdAt date and time as a string */}
-                    <p  className="font-serif font-bold text-slate-400 justify-center" dangerouslySetInnerHTML={{__html: post.WriterName || 'Unknown'}} ></p>
-                    <p className="text-sm text-gray-400">
-                      Date: {new Date(post.createdAt.seconds * 1000).toLocaleString()}
-                    </p>  
-                    {/* Add the Link component here */}
-                    <Link to={`/post/${post.id}`} className="text-blue-500">Read more..</Link>
-                  </div>
-               </div>
-            ))}
-              {/* Pass props to Pagination component */}
-              <div className='mb-5'>
-              <Pagination currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />
-              </div>
+        {/* Main Wrapper */}
+        <div className='bg-gray-100 min-h-screen'>
+          {/* Subheader */}
+          <SubHeader />
+
+          {/* Navigation */}
+          <NaviHome />
+
+          {/* News Section Header */}
+          <div className="w-full lg:w-3/5 bg-gradient-to-r from-teal-500 to-teal-700 text-white font-extrabold text-lg ml-5 mt-8 py-3 px-5 rounded-lg shadow-lg flex items-center">
+            <i className="fas fa-newspaper text-yellow-300 mr-2 animate__animated animate__fadeIn"></i>
+            <p>All News:</p>
           </div>
-        
-            <div>
-            <LazyRGHS/>
-            <TrendingProducts/>
-            <ProductNewsHindi/>
-            <TrendsTopic/>
+
+          <div className="flex flex-col lg:flex-row mt-5 space-y-6 lg:space-y-0 lg:space-x-6">
+            {/* Posts Section */}
+            <div className="w-full lg:w-3/5 bg-white ml-5 mt-5 rounded-lg shadow-lg p-6">
+              {loading ? (
+                <div className="flex justify-center items-center h-64">
+                  <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-teal-500 border-b-4 border-gray-200"></div>
+                </div>
+              ) : (
+                posts.map(post => (
+                  <div key={post.id} className="p-6 mb-6 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-teal-500 hover:border-teal-700 transform hover:scale-105">
+                  <div onClick={() => handlePostClick(post.id)} className="cursor-pointer">
+                    <h2 className="text-2xl font-bold mb-2 text-teal-600 hover:text-teal-800 transition-colors duration-300">
+                      <i className="fas fa-newspaper text-teal-400 mr-2"></i>
+                      {/* Strip HTML tags from the title */}
+                      {post.title ? post.title.replace(/(<([^>]+)>)/gi, "") : 'Untitled'}
+                    </h2>
+                  </div>
+                  <div className="mt-2">
+                    {/* Render content using dangerouslySetInnerHTML since it's rich HTML text */}
+                    <div className="text-gray-700 mb-4" dangerouslySetInnerHTML={{ __html: post.content.slice(0, 200) + '...' }} />
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-gray-500 italic">By: {post.WriterName || 'Unknown'}</p>
+                        <p className="text-sm text-gray-400">
+                          Date: {new Date(post.createdAt.seconds * 1000).toLocaleString()}
+                        </p>
+                      </div>
+                      <Link to={`/post/${post.id}`} className="text-teal-500 font-semibold hover:underline">Read more...</Link>
+                    </div>
+                  </div>
+                </div>
+                
+                
+                
+                ))
+              )}
+              {/* Pagination */}
+              {!loading && (
+                <div className='mb-5'>
+                  <Pagination currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />
+                </div>
+              )}
             </div>
 
-            
-            
+            {/* Side Components */}
+            <div className="w-full lg:w-2/5 space-y-6">
+              <LazyRGHS />
+              <TrendingProducts />
+              <ProductNewsHindi />
+              <TrendsTopic />
+            </div>
+          </div>
 
+          {/* Products Section Header */}
+          <div className="w-full lg:w-3/5 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-extrabold text-lg ml-5 mt-10 py-3 px-5 rounded-lg shadow-lg flex items-center">
+            <i className="fas fa-shopping-cart text-yellow-300 mr-2 animate__animated animate__fadeIn"></i>
+            <p>Products:</p>
+          </div>
+          <ProductsCarousel />
+
+          {/* Product Categories Section Header */}
+          <div className="w-full lg:w-3/5 bg-gradient-to-r from-purple-500 to-purple-700 text-white font-extrabold text-lg ml-5 mt-10 py-3 px-5 rounded-lg shadow-lg flex items-center">
+            <i className="fas fa-tags text-yellow-300 mr-2 animate__animated animate__fadeIn"></i>
+            <p>Products' Categories:</p>
+          </div>
+          <ProductCateg />
         </div>
-    <div>
-      <div className='w-3/5 bg-stone-500 text-white font-semibold text-lg ml-5 mt-5 h-auto'> <p className='ml-3'> Products: </p></div>
-      <ProductsCarousel/>
-    </div>
-    <div className='w-3/5 bg-stone-500 text-white font-semibold text-lg ml-5 mt-5 h-auto'> <p className='ml-3'> Products' Category : </p></div>
-      <ProductCateg/>
-    </div>
-
-
-   <div>
-    
-   </div>
-  </div>
-
+      </div>
+    </HelmetProvider>
   );
 };
 

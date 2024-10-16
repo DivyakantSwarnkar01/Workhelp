@@ -1,19 +1,18 @@
-// Postdetails.jsx
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Navigate } from 'react-router-dom';
-import { doc, getDoc } from 'firebase/firestore';
+import { useParams, useNavigate } from 'react-router-dom';
+import { doc, getDoc, collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 import firebase from '../LogSign/fbcon';
 import Social from './Social';
 import MetaTags from '../../Helmet/MetaTags';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { htmlToText } from 'html-to-text';
+import Logo from '../../assets/logo.png'; 
 import './PostDetails.css';
-import Logo from '../../assets/logo.png'
 
 const Postdetails = () => {
-  const { postId } = useParams(); 
+  const { postId } = useParams();
   const [post, setPost] = useState(null);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [relatedPosts, setRelatedPosts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,14 +21,15 @@ const Postdetails = () => {
         const postDoc = doc(firebase.firestore, 'Blogs_Contents', postId);
         const docSnap = await getDoc(postDoc);
         if (docSnap.exists()) {
-          setPost({ 
-            id: docSnap.id, 
-            title: docSnap.data().title, 
+          setPost({
+            id: docSnap.id,
+            title: docSnap.data().title,
             content: docSnap.data().content,
             createdAt: docSnap.data().createdAt,
             thumbnail: docSnap.data().thumbnail,
-            WriterName: docSnap.data().WriterName // Fetch the author's name
+            WriterName: docSnap.data().WriterName
           });
+          fetchRandomPosts(); // Fetch random posts when the main post is fetched
         } else {
           console.log('No such document!');
           navigate('/NotFound');
@@ -39,108 +39,157 @@ const Postdetails = () => {
         navigate('/NotFound');
       }
     };
-  
-    fetchPost();
 
-    // Logic to apply dark mode theme
-    if (isDarkMode) {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
+    fetchPost();
+  }, [postId]);
+
+  // Function to fetch random posts
+  const fetchRandomPosts = async () => {
+    try {
+      const postsRef = collection(firebase.firestore, 'Blogs_Contents');
+      const q = query(postsRef, orderBy('createdAt'), limit(10)); // Limit to a certain number of posts
+      const querySnapshot = await getDocs(q);
+      
+      const allPosts = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      // Shuffle the posts and select a random subset
+      const shuffledPosts = allPosts.sort(() => 0.5 - Math.random()).slice(0, 5); // Get 5 random posts
+      setRelatedPosts(shuffledPosts);
+    } catch (error) {
+      console.error('Error fetching related posts:', error);
     }
-  }, [postId, isDarkMode]);
+  };
+
+  // Function to clean text for schema data (remove images and URLs)
+  const cleanSchemaText = (text) => {
+    if (typeof text !== 'string') return ''; // Ensure it's a string
+    return text.replace(/data:image\/[a-zA-Z]+;base64,[^\s]+/g, '').replace(/https?:\/\/[^\s]+/g, '').replace(/www\.[^\s]+/g, '');
+  };
+
+  const extractImageFromTitle = (title) => {
+    if (typeof title !== 'string') return { image: null, cleanedTitle: title };
+    const match = title.match(/(data:image\/[a-zA-Z]+;base64,[^\s]+)/);
+    const image = match ? match[0] : null; 
+    const cleanedTitle = title.replace(/<[^>]+>/g, '').replace(/(data:image\/[a-zA-Z]+;base64,[^\s]+)$/, '').trim();
+    return { image, cleanedTitle };
+  };
 
   if (!post) return null;
 
-  // Extract text content of post.title
-  const quillHtmlContent = post.title;
-  const quillTitle = htmlToText(quillHtmlContent);
+  const filteredTitle = htmlToText(cleanSchemaText(post.title || ''));
+  const filteredContent = htmlToText(cleanSchemaText(post.content || '')).replace(/<img[^>]*>/g, '');
+  const slicedContent = cleanSchemaText(filteredContent.split(' ').slice(0, 50).join(' '));
+  const thumbnailImage = extractImageFromTitle(post.title);
 
-  // Extracting content from Jodit editor 
-  const htmlContent = post.content;
-
-  // Extract text content from HTML
-  const textContent = htmlToText(htmlContent);
-
-  // Slice the text content to just 50 words
-  const slicedContent = textContent.split(' ').slice(0, 50).join(' ');
-
-  // JSON-LD Schema
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "headline": quillTitle,
-    "description": slicedContent,
+    "headline": filteredTitle,
+    "description": cleanSchemaText(slicedContent),
     "datePublished": post.createdAt.toDate().toISOString(),
     "author": {
       "@type": "Person",
-      "name": post.WriterName || "Author Name" // Use author's name from the database or a fallback
+      "name": post.WriterName || "Author Name"
     },
     "publisher": {
       "@type": "Organization",
       "name": "Workhelper News",
       "logo": {
         "@type": "ImageObject",
-        "url": {Logo} // Replace with your logo URL
+        "url": Logo
       }
     },
-    "image": post.thumbnail || "https://www.example.com/default-thumbnail-url.jpg", // Replace with a default image if thumbnail is missing
+    "image": thumbnailImage.image || post.thumbnail || "https://www.example.com/default-thumbnail-url.jpg",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": `https://www.workhelper.shop/post/${postId}`
     }
   };
 
+  const handleShare = (platform) => {
+    const url = window.location.href;
+    const title = post.title;
+    const shareText = encodeURIComponent(`${title}\n${url}`);
+
+    switch (platform) {
+      case 'facebook':
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        break;
+      case 'twitter':
+        window.open(`https://twitter.com/intent/tweet?text=${shareText}`, '_blank');
+        break;
+      case 'linkedin':
+        window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`, '_blank');
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <HelmetProvider>
-      <div className="flex justify-center items-center min-h-screen bg-gray-200 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+      <div className="min-h-screen bg-gray-50">
         <Helmet>
-          <title>{quillTitle}</title>
+          <title>{filteredTitle}</title>
           <meta name="description" content={slicedContent} />
-          <meta property="og:title" content={quillTitle} />
-          <meta property="og:description" content={slicedContent} />
-          <meta property="og:image" content={post.thumbnail || 'default-thumbnail-url.jpg'} />
-          <meta property="og:url" content={`https://www.workhelper.shop/post/${postId}`} />
           <link rel="canonical" href={`https://www.workhelper.shop/post/${postId}`} />
           <script type="application/ld+json">
             {JSON.stringify(schemaData)}
           </script>
         </Helmet>
-        
-        <MetaTags 
-          Title={quillTitle}
-          description={slicedContent}
-          imageUrl={post.thumbnail}
-          headTitle={quillTitle}
-          descriptionContent={slicedContent}
-        />
 
-        <div className="w-full max-w-lg p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-10 mt-10 mb-10">
-          <div className="flex justify-between items-center mb-4">
-            <label htmlFor="toggle" className="flex items-center cursor-pointer">
-              <div className="relative">
-                <input
-                  id="toggle"
-                  type="checkbox"
-                  className="hidden"
-                  onChange={() => setIsDarkMode(!isDarkMode)}
-                  checked={isDarkMode}
-                />
-                <div className="toggle__line w-10 h-4 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner"></div>
-                <div className={`toggle__dot absolute w-6 h-6 bg-white dark:bg-gray-800 border-2 border-pink-500 dark:border-violet-500 rounded-full shadow top-0 -left-1 transition-transform duration-300 ease-in-out transform ${isDarkMode ? 'translate-x-6' : ''}`}></div>
-              </div>
-            </label>
-          </div>
+        {/* Main Container */}
+        <main className="max-w-5xl mx-auto p-6">
+          {/* Header Section */}
+          <header className="bg-lime-600 text-white rounded-lg p-6 mb-8 shadow-lg">
+            <h1 className="text-3xl md:text-5xl font-bold">{filteredTitle}</h1>
+            <p className="mt-2 text-lg">Published on {post.createdAt.toDate().toLocaleString()} by {post.WriterName}</p>
+          </header>
 
-          <div className="text-gray-800 dark:text-gray-200">
-            <p className="text-sm text-blue-400">
-              {post.createdAt.toDate().toLocaleString()} {/* Convert to JavaScript Date object and format */}
-            </p>
-            <h1 className="text-3xl font-bold mb-4" dangerouslySetInnerHTML={{__html: post.title}} />
-            <div dangerouslySetInnerHTML={{ __html: post.content }} />
-          </div>
-          {post && <Social url={window.location.href} title={post.title} />}
-        </div>
+          {/* Content Section */}
+          <article className="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <div className="text-gray-800 mb-4" dangerouslySetInnerHTML={{ __html: post.content }} />
+            <div className="border-t border-gray-300 my-4"></div>
+
+           {/* Social Share Section */}
+<div className="flex justify-center mb-4 space-x-4">
+  <button onClick={() => handleShare('facebook')} className="flex items-center space-x-2 bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700 transition duration-300">
+    <i className="fab fa-facebook h-5 w-5"></i>
+    <span className="text-sm">Share on Facebook</span>
+  </button>
+  <button onClick={() => handleShare('twitter')} className="flex items-center space-x-2 bg-blue-400 text-white rounded-md px-4 py-2 hover:bg-blue-500 transition duration-300">
+    <i className="fab fa-twitter h-5 w-5"></i>
+    <span className="text-sm">Share on Twitter</span>
+  </button>
+  <button onClick={() => handleShare('linkedin')} className="flex items-center space-x-2 bg-blue-700 text-white rounded-md px-4 py-2 hover:bg-blue-800 transition duration-300">
+    <i className="fab fa-linkedin h-5 w-5"></i>
+    <span className="text-sm">Share on LinkedIn</span>
+  </button>
+           </div>
+
+          </article>
+
+          {/* Related Posts Section */}
+          <aside className="bg-gray-100 rounded-lg p-6 shadow-lg">
+            <h2 className="text-2xl font-bold mb-4 text-center text-lime-600">Related Posts</h2>
+            <ul className="space-y-4">
+              {relatedPosts.map((relatedPost) => (
+                <li 
+                  key={relatedPost.id} 
+                  className="py-3 px-4 bg-white rounded-lg hover:bg-lime-600 transition-all duration-200 cursor-pointer shadow-md transform hover:-translate-y-1"
+                  onClick={() => navigate(`/post/${relatedPost.id}`)} 
+                >
+                  <span className="text-lg font-semibold text-gray-800 hover:text-white">
+                    {htmlToText(cleanSchemaText(relatedPost.title || ''))}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </main>
       </div>
     </HelmetProvider>
   );

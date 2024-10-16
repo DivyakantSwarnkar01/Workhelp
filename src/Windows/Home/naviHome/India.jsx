@@ -37,35 +37,37 @@ const India = () => {
         <>
             <HelmetProvider>
                 <title>India News - Workhelper</title>
-                <link rel="canonical" href="https://www.workhelper.shop/Home/India" />
+                <meta name="description" content="Stay updated with the latest news from India covering politics, culture, sports, and more." />
+                <meta name="keywords" content="India news, Indian politics, culture, sports news, latest news" />
+                <link rel="canonical" href="https://www.workhelper.shop/India" />
             </HelmetProvider>
             <NaviHome />
-            <div className="p-4 bg-zinc-700">
+            <div className="min-h-screen bg-gray-100 p-6">
                 {/* Top thin line */}
                 <div className="border-t-2 border-gray-300 mb-4"></div>
-                
+
                 {/* Category Title */}
-                <h1 className="text-3xl font-bold text-white mb-4 text-center">
+                <h1 className="text-4xl font-bold text-lime-700 mb-6 text-center transition-transform duration-300 hover:scale-105">
                     India News
                 </h1>
-            
-
-                {/* Articles */}
-                <div className="space-y-4 flex justify-center">
-                    <div className="w-1/3">
-                        {worldPosts.map((post) => (
-                            <div key={post.id} className="bg-white p-4 rounded-lg shadow-lg mb-4">
-                                <h2 className="text-2xl font-bold mb-2" dangerouslySetInnerHTML={{ __html: post.title }} />
-                                <p className="text-sm mb-2" dangerouslySetInnerHTML={{ __html: truncateContent(post.content) }} />
-                                <div className="text-gray-500 text-xs">
-                                    <p>{`Date: ${format(new Date(post.createdAt.seconds * 1000), 'MMM dd, yyyy')}`}</p>
-                                    <p>{`Authored by: ${post.WriterName}`}</p>
-                                </div>
-                                {/* Thin lime color line between articles */}
-                                <div className="border-t-2 border-lime-500 mt-4"></div>
+                
+                {/* Articles Section */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {worldPosts.map((post) => (
+                        <div key={post.id} className="bg-white p-6 rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl hover:bg-gray-50">
+                            <h2 className="text-2xl font-bold mb-2 text-lime-700 hover:text-lime-600 transition-colors duration-200" dangerouslySetInnerHTML={{ __html: post.title }} />
+                            <p className="text-sm text-gray-700 mb-2" dangerouslySetInnerHTML={{ __html: truncateContent(post.content) }} />
+                            <div className="text-gray-500 text-xs mb-2">
+                                <p>{`Date: ${format(new Date(post.createdAt.seconds * 1000), 'MMM dd, yyyy')}`}</p>
+                                <p>{`Authored by: ${post.WriterName}`}</p>
                             </div>
-                        ))}
-                    </div>
+                            {/* Thin lime color line between articles */}
+                            <div className="border-t-2 border-lime-500 my-4"></div>
+                            <a href={`/post/${post.id}`} className="text-lime-700 font-semibold hover:underline">
+                                Read More
+                            </a>
+                        </div>
+                    ))}
                 </div>
             </div>
         </>

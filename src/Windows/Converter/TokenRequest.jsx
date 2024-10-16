@@ -189,7 +189,7 @@ const TokenRequest = ({ targetFormat, inputType, heading }) => {
         </div>
       )}
 
-      {downloadUrl && <TokenRequestButton downloadUrl={downloadUrl} />}
+      {downloadUrl && <TokenRequestButton downloadUrl={downloadUrl} fileExtension={targetFormat.toLowerCase()} />}
 
       {error && (
         <div className="mt-4 p-4 bg-red-100 text-red-700 rounded">
