@@ -64,11 +64,11 @@ const TokenRequest = ({ targetFormat, inputType, heading }) => {
           };
 
           const res = await axios.post(
-            'https://2pij30jf87.execute-api.eu-north-1.amazonaws.com/Workhelper_init_deployment/file-process',
+            'URL of API',
             requestBody,
             {
               headers: {
-                Authorization: `Bearer 0f382b343f24439088783744d3340371`,
+                Authorization: `Bearer Token`,
                 'Content-Type': 'application/json',
               },
             }
