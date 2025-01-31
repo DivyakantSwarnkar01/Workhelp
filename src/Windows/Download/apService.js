@@ -1,14 +1,14 @@
 // apiService.js
 import axios from 'axios';
 
-const API_KEY = 'a623a1c604mshf0c3c388f31fb13p1d6a2ajsn3a94cb326a55';
-const BASE_URL = 'https://youtube-search-and-download.p.rapidapi.com';
+const API_KEY = '';
+const BASE_URL = '';
 
 const apiService = axios.create({
   baseURL: BASE_URL,
   headers: {
     'X-Rapidapi-Key': API_KEY,
-    'X-Rapidapi-Host': 'youtube-search-and-download.p.rapidapi.com'
+    'X-Rapidapi-Host': ''
   }
 });
 
